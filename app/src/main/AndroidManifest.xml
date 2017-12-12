@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".YGSCateAPP">
+        </activity>
+        <activity
+            android:name=".SJGL"
+            android:label="@string/title_activity_sjgl"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
