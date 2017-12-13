@@ -25,14 +25,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         //创建商家信息表
         //sname商家名称，opentime营业时间，remark备注
         //
-        String str1="create table tb_shopsinfo(_id integer primarykey key,userid varchar(50),pwd varchar(30),sname varchar(20),address varchar(50),tel varchar(20),photo varchar(500),opentime varchar(20),remark varchar(300))";
+/*        String str1="create table tb_shopsinfo(_id integer primarykey key,userid varchar(50),pwd varchar(30),sname varchar(20),address varchar(50),tel varchar(20),photo varchar(500),opentime varchar(20),remark varchar(300))";
 
         //创建商家菜单表
         //shopsinfoid商家信息ID，dishname菜名，remark备注
         String str2=" create table tb_shopsmenu(_id integer primary key ,shopsinfoid integer,dishname varchar(100),photo varchar(500),price decimal,remark varchar(300))";
 
         sqLiteDatabase.execSQL(str1);
-        sqLiteDatabase.execSQL(str2);
+        sqLiteDatabase.execSQL(str2);*/
 
     }
 

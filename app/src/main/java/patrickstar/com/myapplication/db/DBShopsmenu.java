@@ -6,7 +6,9 @@ import java.util.List;
 
 import model.greendao.gen.DaoMaster;
 import model.greendao.gen.DaoSession;
+import model.greendao.gen.tb_shopsinfoDao;
 import model.greendao.gen.tb_shopsmenuDao;
+import patrickstar.com.myapplication.model.tb_shopsinfo;
 import patrickstar.com.myapplication.model.tb_shopsmenu;
 
 /**
@@ -149,6 +151,21 @@ public class DBShopsmenu {
     }
 
 
+    /**
+     * 根据商家id获取数据
+     * @param shopid
+     * @return
+     */
+    public  List findDataBySHopid(Long shopid){
+        List<tb_shopsmenu> bu;
+        try {
+
+            bu = shopsmenuDao.queryBuilder().where(tb_shopsmenuDao.Properties.Shopsinfoid.eq(shopid)).list();
+        } catch (Exception ex) {
+            return null;
+        }
+        return  bu;
+    }
     /**
      * 相等查询,where参数中可以添加多个相等的条件
      *
