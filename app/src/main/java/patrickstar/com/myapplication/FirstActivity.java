@@ -113,8 +113,7 @@ public class FirstActivity extends AppCompatActivity {
 
 
 
-
-          listData=getdata();
+        listData=getdata();
 
       final MyAdapter adapter1=new MyAdapter(FirstActivity.this,listData);
         mListViewt=(ListView)this.findViewById(R.id.listviewd);
@@ -127,10 +126,10 @@ public class FirstActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
                 String shopsid = shopsInfo.substring(0,shopsInfo.indexOf('|'));//截取商店id
-
-                Intent intent = new Intent(FirstActivity.this,StoreDetail.class);
+                Toast.makeText(FirstActivity.this,shopsid,Toast.LENGTH_SHORT).show();
+      /*          Intent intent = new Intent(FirstActivity.this,StoreDetail.class);
                 intent.putExtra(FLAG,new String(shopsid));
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
