@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/storedetail"
+
+    android:orientation="vertical"
+    android:weightSum="1">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:minHeight="50dp"
+        app:titleTextColor="#ffffff"
+        android:gravity="center"
+        android:textAlignment="center"
+        >
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.06">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/storename"
+                android:layout_height="30dp"
+                android:layout_width="400dp"
+                android:text="梵正小食堂"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:textSize="25dp"
+                />
+            <ImageView
+                android:id="@+id/storeimage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignLeft="@+id/storename"
+
+                />
+            <TextView
+                android:id="@+id/storeaddress"
+                android:layout_height="30dp"
+                android:layout_width="200dp"
+                android:layout_below="@+id/storename"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                />
+            <TextView
+                android:id="@+id/storemobile"
+                android:layout_height="30dp"
+                android:layout_width="200dp"
+                android:layout_below="@+id/storeaddress"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                />
+            <TextView
+                android:id="@+id/storetime"
+                android:layout_height="30dp"
+                android:layout_width="400dp"
+                android:layout_below="@+id/storemobile"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                />
+            <TextView
+                android:id="@+id/remark"
+                android:layout_height="30dp"
+                android:layout_width="200dp"
+                android:layout_below="@+id/storetime"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.94">
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="400dp"
+            android:id="@+id/txtcaidan"
+            android:text="菜品特色:"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCall"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="300dp"
+            android:text="来一份"/>
+        <TextView
+            android:layout_height="5dp"
+            android:layout_width="400dp"
+            android:id="@+id/txtxian"
+            android:background="@color/colorPrimaryDark"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/detaillist"
+            android:scrollbarAlwaysDrawVerticalTrack="true">
+
+        </ListView>
+
+    </LinearLayout>
+
+
+</LinearLayout>
