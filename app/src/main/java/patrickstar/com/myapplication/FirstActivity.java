@@ -1,5 +1,6 @@
 package patrickstar.com.myapplication;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +42,13 @@ import patrickstar.com.myapplication.db.DBShopsinfo;
 import patrickstar.com.myapplication.model.tb_shopsinfo;
 
 public class FirstActivity extends AppCompatActivity {
+    public static final String FLAG = "id";//定义一个常量用来作为请求码，传值给下一个页面
 
     //list控件的定义
-
+    private List<tb_shopsinfo> listData;// 用于装数据用的
+    private Button btnheader;
+    private ListView  mListViewt;
+    private Button btnclick;
 
 
     //模糊搜索
@@ -83,19 +90,51 @@ public class FirstActivity extends AppCompatActivity {
     private TextView title;
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
-    private ImageView pic;
-    private  TextView name;
-    private TextView optime;
+  //  private ImageView pic;
+  //  private  TextView name;
+  //  private TextView optime;
 
     //数据列
 
 
-    List personList;
+  //  List personList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+
+        /*tb_shopsinfo shopsinfo1 = new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","会珍堂","人和食堂","18212322222","img/a.jpeg","8:00 am","");
+
+        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+        int n =  db.insert(shopsinfo1);
+        tb_shopsinfo tb = db.findbyUserid("ljm");*/
+         //Log.i("userid",tb.getUserid());
+
+
+
+
+          listData=getdata();
+
+      final MyAdapter adapter1=new MyAdapter(FirstActivity.this,listData);
+        mListViewt=(ListView)this.findViewById(R.id.listviewd);
+        mListViewt.setAdapter(adapter1);
+
+
+        //点击商店信息，进入到商店详细页面
+        mListViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
+                String shopsid = shopsInfo.substring(0,shopsInfo.indexOf('|'));//截取商店id
+
+                Intent intent = new Intent(FirstActivity.this,StoreDetail.class);
+                intent.putExtra(FLAG,new String(shopsid));
+                startActivity(intent);
+            }
+        });
+
+
 /*
         personList = new ArrayList();
 
@@ -135,25 +174,27 @@ public class FirstActivity extends AppCompatActivity {
         }
 
 */
+/*
 
-
-int iii=0;
+       int iii=0;
        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
         List<tb_shopsinfo> list = db.findAll();
-        Log.i("-----------------i",String.valueOf(list.size()));
+       Log.i("-----------------i",String.valueOf(list.size()));
 
         for(int j = 0 ; j<list.size();j++){
             tb_shopsinfo t = (tb_shopsinfo) list.get(j);
             Toast.makeText(FirstActivity.this,t.getUserid(),Toast.LENGTH_SHORT);
-            String st= t.getPwd();
+            String st= t.getPwd();*/
+
            /* ImageView pic = (ImageView)findViewById(R.id.pic);
            TextView name =(TextView)findViewById(R.id.name);
             TextView optime = (TextView)findViewById(R.id.optime);
             name.setText(t.getSname().toString());
             optime.setText(t.getOpentime().toString());*/
 
-        }
-        LinearLayout item_good_count0=(LinearLayout) findViewById(R.id.item_good_count0);
+       // }
+
+       // LinearLayout item_good_count0=(LinearLayout) findViewById(R.id.item_good_count0);
         //把数据显示到屏幕
         /*for(tb_shopsinfo p:list)
         {
@@ -362,6 +403,33 @@ int iii=0;
 
 
 
+
+    }
+
+    public List<tb_shopsinfo> getdata()
+    {
+        /*List<tb_shopsinfo> list=new ArrayList<tb_shopsinfo>();
+        tb_shopsinfo person=new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","老昆明火锅","人和食堂","18212322222","img/a.jpeg","8:00 am","");
+        list.add(person);
+
+        person=new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","水煮鱼","人和食堂","18212322222","img/a.jpeg","8:00 am","");
+        list.add(person);
+
+
+        person=new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","黄焖鸡","人和食堂","18212322222","img/a.jpeg","8:00 am","");
+        list.add(person);*/
+
+
+//        //从模拟器读取图片
+//        final File file = new File(FirstActivity.this.getFilesDir(),"imgs/a.jpeg");
+//        Toast.makeText(FirstActivity.this,FirstActivity.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
+//        if(file.exists()){
+//            imgPhoto.setImageURI(Uri.fromFile(file));
+//        }
+
+        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+        List<tb_shopsinfo> list = db.findAll();
+        return list;
 
     }
 }

@@ -112,20 +112,18 @@
         android:background="#EFEFEF"
         />
 
+    <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:id="@+id/ll"
+            >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="@android:color/white"
-        android:orientation="horizontal"
-        android:id="@+id/ll"
-        >
 
-        <!--
-        商家list
-        -->
 
-<!--
+
         <TextView android:id="@+id/time"
             android:layout_width="80dip"
             android:layout_height="20dip"
@@ -148,7 +146,7 @@
         <!--
         商家展示
         -->
-
+    <!--
         <ImageView
 
             android:id="@+id/pic"
@@ -250,5 +248,13 @@
 
         </RelativeLayout>
     </LinearLayout>
+-->
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listviewd"
+        >
+
+    </ListView>
 
 </LinearLayout>
