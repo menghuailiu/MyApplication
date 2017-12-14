@@ -13,22 +13,24 @@
         <activity
             android:name=".SJGL"
             android:label="@string/title_activity_sjgl"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".StoreDetail"
-            android:label="@string/title_activity_store_detail"
             android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+            -->
         </activity>
-        <activity
-            android:name=".CallActivity"
-            android:label="@string/title_activity_call"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".FirstActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DishActivity">
 
         </activity>
     </application>

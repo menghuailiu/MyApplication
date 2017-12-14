@@ -37,8 +37,8 @@ public class CreateGreendaoCLass {
         shopsinfo.addStringProperty("dishname");
         shopsinfo.addStringProperty("photo");
         shopsinfo.addDoubleProperty("price");
-        shopsinfo.addStringProperty("remark");*/
-
+        shopsinfo.addStringProperty("remark");
+*/
     }
 }
 
