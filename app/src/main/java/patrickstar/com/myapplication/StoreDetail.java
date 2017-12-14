@@ -87,9 +87,9 @@ public class StoreDetail extends AppCompatActivity {
 
 
         //给数据库添加商店信息
-       // tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("6"),"al","124456","麻辣小龙虾","地址：人和食堂","订餐电话：152123298272","img/a.jpeg","营业时间：8:00 am - 10：00 pm","提供免费wifi");
-      //  DBShopsinfo db = new DBShopsinfo(StoreDetail.this);
-       // int i =  db.insert(shopsinfo);
+        tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("6"),"al","124456","麻辣小龙虾","地址：人和食堂","订餐电话：152123298272","img/a.jpeg","营业时间：8:00 am - 10：00 pm","提供免费wifi");
+        DBShopsinfo db = new DBShopsinfo(StoreDetail.this);
+        int i =  db.insert(shopsinfo);
        // 给数据库添加商店信息
 //        tb_shopsmenu cookinfo = new tb_shopsmenu(Long.parseLong("7"),"7","美味小面","img/m3.jpeg","8元/份","");
 //        DBShopsmenu db = new DBShopsmenu(StoreDetail.this);
