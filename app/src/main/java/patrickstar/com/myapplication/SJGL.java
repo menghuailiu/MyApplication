@@ -46,15 +46,15 @@ public class SJGL extends AppCompatActivity {
          helpe.getWritableDatabase();
          */
 
-       /* //添加数据
-           tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","川菜馆","人和食堂","18212322222","img/a.jpeg","8:00 am","");
+        //添加数据
+           tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","老昆明火锅","人和食堂","18212322222","img/a.jpeg","8:00 am","");
 
         DBShopsinfo db = new DBShopsinfo(SJGL.this);
        int i =  db.insert(shopsinfo);
 
         //像商家信息内容并显示
        tb_shopsinfo tb = db.findbyUserid("ljm");
-        Log.d("userid",tb.getUserid());
-        */
+       // Log.i("userid",tb.getUserid());
+
 
 }
