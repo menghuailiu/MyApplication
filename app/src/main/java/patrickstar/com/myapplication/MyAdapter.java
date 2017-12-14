@@ -42,7 +42,7 @@ private  Context context1;
         context1 = context;
 
     }
-
+//dsgcjs
 
     @Override
     public int getCount() {
