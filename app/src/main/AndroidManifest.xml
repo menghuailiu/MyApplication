@@ -38,7 +38,9 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".FirstActivity"></activity>
+        <activity android:name=".FirstActivity">
+
+        </activity>
         <activity android:name=".DishActivity"></activity>
         <activity android:name=".StoreDetail">
 

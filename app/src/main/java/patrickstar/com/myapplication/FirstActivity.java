@@ -119,20 +119,29 @@ public class FirstActivity extends AppCompatActivity {
         mListViewt=(ListView)this.findViewById(R.id.listviewd);
         mListViewt.setAdapter(adapter1);
 
-
-        //点击商店信息，进入到商店详细页面
+//        final String userid = text1.getText().toString();//调用这个方法就可以获得这个textView的内容了
+//
+//        //点击商店信息，进入到商店详细页面
         mListViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
-//                String shopsid = shopsInfo.substring(0,shopsInfo.indexOf('|'));//截取商店id
-//                Toast.makeText(FirstActivity.this,shopsid,Toast.LENGTH_SHORT).show();
+
+              //  String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
+
+                TextView text=(TextView)mListViewt.getChildAt(i).findViewById(R.id.id);
+                text.getText();//调用这个方法就可以获得这个textView的内容了
+                String id1 = text.getText().toString();
+                String shops = (mListViewt.getChildAt(i).findViewById(R.id.shopid)).toString();//获取id
+                //String id = (mListViewt.getChildAt(i).findViewById(R.id.id)).toString();//获取id
+                //Log.i("shuju",id1);
+                //String shopsid = shopsInfo.substring(0,shopsInfo.indexOf());//截取商店name
+                Toast.makeText(FirstActivity.this,id1,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FirstActivity.this,StoreDetail.class);
-//                intent.putExtra(FLAG,new String(shopsid));
+                intent.putExtra(FLAG,new String(id1));
                 startActivity(intent);
             }
         });
-
 
 
 /*
@@ -428,7 +437,9 @@ public class FirstActivity extends AppCompatActivity {
 //        }
 
         DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+      //  List<tb_shopsinfo> list = db.findAll();
         List<tb_shopsinfo> list = db.findAll();
+
         return list;
 
     }
