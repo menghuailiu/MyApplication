@@ -1,7 +1,10 @@
 package patrickstar.com.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,10 +67,10 @@ public class MyAdaptero extends BaseAdapter {
         {
             holder = new ViewHoldero();//实例化ViewHolder
             view = inflater.inflate(R.layout.storeitem, null);//解析activity_main 界面
-            //  holder.cb=(CheckBox)view.findViewById(R.id.cb);
-           // holder.imgcai = (ImageView) view.findViewById(R.id.txtphone); //使用ViewHOlder绑定view中的控件
+            holder.imgcai = (ImageView) view.findViewById(R.id.imgcai); //使用ViewHOlder绑定view中的控件
             holder.txtcname = (TextView) view.findViewById(R.id.txtcname);
             holder.txtcprice = (TextView) view.findViewById(R.id.txtcprice);
+            holder.txtcremark = (TextView)view.findViewById(R.id.txtcremack);
 
             //holder.cb = view.findViewById(R.id.cb);
             view.setTag(holder);//在view中使用tag标签存储
@@ -85,8 +88,22 @@ public class MyAdaptero extends BaseAdapter {
 //        }
         //赋值
         //  holder.img.setBackgroundResource(data.get(i).getPhoto());
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" +data.get(i).getPhoto();
+        //imgpath=path;
+        File file = new File(path);//创建一个文件对象
+
+        if (file.exists()) {
+            Bitmap bm = BitmapFactory.decodeFile(path);
+            //将图片显示到ImageView中
+            holder.imgcai.setImageBitmap(bm);
+        }
+
+
+
+
         holder.txtcname.setText(data.get(i).getDishname());
         holder.txtcprice.setText(data.get(i).getPrice());
+        holder.txtcremark.setText(data.get(i).getRemark());
 
         //holder.cb.setChecked(data.get(i).getOpentime());
 

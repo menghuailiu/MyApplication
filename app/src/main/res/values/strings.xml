@@ -3,4 +3,5 @@
     <string name="title_activity_sjgl">SJGL</string>
     <string name="title_activity_store_detail">StoreDetail</string>
     <string name="title_activity_call">CallActivity</string>
+    <string name="title_activity_store">StoreActivity</string>
 </resources>

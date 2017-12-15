@@ -5,20 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-        android:layout_width="50dp"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/imgcai"
+        />
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:id="@+id/txtcname"
+        android:layout_marginTop="-40dp"
+        android:layout_marginLeft="120dp"/>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:id="@+id/txtcprice"
+        android:layout_marginTop="-60dp"
+        android:layout_marginLeft="200dp"/>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:id="@+id/txtcremack"
+        android:layout_marginTop="-60dp"
+        android:layout_marginLeft="260dp" />
+    <Button
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:id="@+id/imgcai"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtcname"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtcprice"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtcremack"/>
+        android:layout_marginTop="-70dp"
+        android:layout_marginLeft="350dp"
+        android:id="@+id/btndian"
+        android:background="@drawable/tj"
+        />
 
 </LinearLayout>
