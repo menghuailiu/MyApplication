@@ -49,13 +49,14 @@ public class SJGL extends Activity {
     private TextView time;
     private TextView remark;
     private Button modify;
+    private  ImageView  img;
     public List<tb_shopsmenu> data;
     public int j = 0;
     public ViewHolder holder = null;//viewholder里面装的有界面上有的所有控件对应的属性//viewholder里面装的有界面上有的所有控件对应的属性
     public LayoutInflater inflater;//解析xml文件  将xml文件转换成为view
     private List<tb_shopsmenu> listData;// 用于装数据用的
     private ListView listView;
-
+    private  Button delebt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +88,20 @@ public class SJGL extends Activity {
             listView=(ListView) this.findViewById(R.id.listView);
             listView.setAdapter(adapter);
 
+
             //tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("2"),"xl","123456","饺子馆","人和食堂","18212322222","img/a.jpeg","8:00 am","");
 
             //DBShopsinfo db = new DBShopsinfo(SJGL.this);
             //int i =  db.insert(shopsinfo);
-            DBShopsinfo db = new DBShopsinfo(SJGL.this);
+
+//            tb_shopsmenu shopmemu = new tb_shopsmenu(Long.parseLong("2"),"2","酱爆茄子","img/a.jpeg","12元","优惠");
+//            DBShopsmenu pb = new DBShopsmenu(SJGL.this);
+//            int i =  pb.insert(shopmemu) ;
            // boolean a = db.deleteAll();
           // List li = db.findAll();
           // Toast.makeText(SJGL.this,li.size(),Toast.LENGTH_SHORT);
 
-
+            DBShopsinfo db = new DBShopsinfo(SJGL.this);
             tb_shopsinfo tb = db.findbyUserid("xl");
             String str = tb.getUserid();
             final long id =tb.getId();
@@ -105,13 +110,11 @@ public class SJGL extends Activity {
 
             image =(ImageView)findViewById(R.id.image) ;
             String a = tb.getPhoto();
-           // image.setImageURI(uri.fromFile(new File(ALBUM_PATH + a)));
-            final File file = new File(SJGL.this.getFilesDir(),"a.jpeg");
+            final File files = new File(a);
             Toast.makeText(SJGL.this,SJGL.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
-            if(file.exists()){
-                image.setImageURI(Uri.fromFile(file));
+            if(files.exists()){
+                image.setImageURI(Uri.fromFile(files));
             }
-
 
             address =(TextView)findViewById(R.id.address);
             address.setText(String.valueOf(tb.getAddress()));
@@ -134,17 +137,18 @@ public class SJGL extends Activity {
             });
 
 
+
     }
     public List<tb_shopsmenu> getdata()
     {
-        DBShopsmenu db = new DBShopsmenu(SJGL.this);
-        List<tb_shopsmenu> list = db.query();
+        DBShopsmenu sb = new DBShopsmenu(SJGL.this);
+        List<tb_shopsmenu> list = sb.query();
+
+
         return list;
 
+
     }
-
-
-
     //创建数据库
         /*
          DBOpenHelper helpe=new DBOpenHelper(SJGL.this); //创建数据库

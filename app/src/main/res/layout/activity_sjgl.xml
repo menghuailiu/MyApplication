@@ -75,6 +75,15 @@
                 android:layout_marginTop="250dp"
                 android:text="修改"
                 />
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/modify"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="250dp"
+                android:text="删除"
+                />
            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_marginTop="320dp"
                 android:layout_width="match_parent"
@@ -86,38 +95,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/listView"
                 >
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cb"
-                android:focusable="false"
-                />
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/img"
-                />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#eeffee"
-                    android:textSize="30dp"
-                    android:id="@+id/title"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:textColor="#ccc"
-                    android:id="@+id/explain"/>
-            </LinearLayout>
-     </ListView>
-        </LinearLayout>
-
-
+           </ListView>
+     </LinearLayout>
 </RelativeLayout>
