@@ -124,11 +124,11 @@ public class FirstActivity extends AppCompatActivity {
         mListViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
-                String shopsid = shopsInfo.substring(0,shopsInfo.indexOf('|'));//截取商店id
-                Toast.makeText(FirstActivity.this,shopsid,Toast.LENGTH_SHORT).show();
+//                String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
+//                String shopsid = shopsInfo.substring(0,shopsInfo.indexOf('|'));//截取商店id
+//                Toast.makeText(FirstActivity.this,shopsid,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FirstActivity.this,StoreDetail.class);
-                intent.putExtra(FLAG,new String(shopsid));
+//                intent.putExtra(FLAG,new String(shopsid));
                 startActivity(intent);
             }
         });
