@@ -169,11 +169,7 @@ public class StoreActivity extends AppCompatActivity {
     }
     class btnCall implements android.view.View.OnClickListener{
         public void onClick(View view) {
-//            String str = String.valueOf(((TextView) view).getText());
-//            Intent intent = null;
-//            intent = new Intent(StoreActivity.this,CallActivity.class);
-//            startActivity(intent);
-//            finish();
+
 
             Intent intent = new Intent(StoreActivity.this,CallActivity.class);
             intent.putExtra("call",txtmoblie.getText().toString().trim());
