@@ -137,8 +137,8 @@ public class FirstActivity extends AppCompatActivity {
                 //Log.i("shuju",id1);
                 //String shopsid = shopsInfo.substring(0,shopsInfo.indexOf());//截取商店name
                 Toast.makeText(FirstActivity.this,id1,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(FirstActivity.this,StoreDetail.class);
-                intent.putExtra(FLAG,new String(id1));
+                Intent intent = new Intent(FirstActivity.this,StoreActivity.class);
+                intent.putExtra("id1",new String(id1));
                 startActivity(intent);
             }
         });

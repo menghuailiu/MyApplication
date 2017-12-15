@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -104,8 +105,9 @@ public class StoreActivity extends AppCompatActivity {
 
 
         //调用DAO层方法，查询商店信息
+        String value = getIntent().getStringExtra("id1");
         DBShopsinfo dstore = new DBShopsinfo(StoreActivity.this);
-        tb_shopsinfo sb = dstore.find(8);//定义一个变量接收查询到的数据
+        tb_shopsinfo sb = dstore.find(Integer.valueOf(value));//定义一个变量接收查询到的数据
 
 
 
@@ -163,14 +165,12 @@ public class StoreActivity extends AppCompatActivity {
 
         //点击拨打电话，进入拨号页面
         btnCall = (Button) findViewById(R.id.btnCall);
-        btnCall.setOnClickListener(new btnCall());//调用点击方法
-
-
+        btnCall.setOnClickListener(new btnCall());//调用点击方法Ω
     }
+
+    //Button按钮的点击传值方法
     class btnCall implements android.view.View.OnClickListener{
         public void onClick(View view) {
-
-
             Intent intent = new Intent(StoreActivity.this,CallActivity.class);
             intent.putExtra("call",txtmoblie.getText().toString().trim());
             startActivity(intent);
@@ -241,9 +241,15 @@ public class StoreActivity extends AppCompatActivity {
 
     public List<tb_shopsmenu> getdata()
     {
+        //Intent intent = this.getIntent();
+      //  String value = getIntent().getStringExtra("id1");
+       // txtphone = (TextView) findViewById(R.id.txtphone);
+       // txtphone.setText(value);
+       //String receiveName = _getIntent.getExtras().get(id);
+        String value = getIntent().getStringExtra("id1");
         List<tb_shopsmenu> list=new ArrayList<tb_shopsmenu>();
         DBShopsmenu db = new DBShopsmenu(StoreActivity.this);
-        List<tb_shopsmenu> listmenu = db.findDataBySHopid(Long.parseLong("8"));
+        List<tb_shopsmenu> listmenu = db.findDataBySHopid(Long.parseLong(value));
         Log.i("-----------------i",String.valueOf(list.size()));
 
         for(int j = 0 ; j<list.size();j++) {
