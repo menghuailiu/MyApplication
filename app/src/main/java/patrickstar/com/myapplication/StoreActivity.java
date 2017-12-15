@@ -120,6 +120,9 @@ public class StoreActivity extends AppCompatActivity {
 
         txtmoblie = (TextView) findViewById(R.id.storemobile);
         txtmoblie.setText(sb.getTel());
+        final String number = txtmoblie.getText().toString();
+        Toast.makeText(StoreActivity.this,number,Toast.LENGTH_LONG).show();
+
 
         txttime = (TextView) findViewById(R.id.storetime);
         txttime.setText(sb.getOpentime());
@@ -132,8 +135,7 @@ public class StoreActivity extends AppCompatActivity {
 
         //读取数据库图片
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" ;
-        String imgpath=path;
-       // String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication";
+
         File f = new File(path+"/img");
         if(f.exists()) {
         }
@@ -165,19 +167,27 @@ public class StoreActivity extends AppCompatActivity {
 
         //点击拨打电话，进入拨号页面
         btnCall = (Button) findViewById(R.id.btnCall);
-        btnCall.setOnClickListener(new btnCall());//调用点击方法Ω
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:"+number));
+                startActivity(intent);
+            }
+        });//调用点击方法
     }
 
-    //Button按钮的点击传值方法
-    class btnCall implements android.view.View.OnClickListener{
-        public void onClick(View view) {
-            Intent intent = new Intent(StoreActivity.this,CallActivity.class);
-            intent.putExtra("call",txtmoblie.getText().toString().trim());
-            startActivity(intent);
-            finish();
-
-        }
-    }
+//    //Button按钮的点击传值方法
+//    class btnCall implements android.view.View.OnClickListener{
+//        public void onClick(View view) {
+//            Intent intent = new Intent(StoreActivity.this,CallActivity.class);
+//            intent.putExtra("call",txtmoblie.getText().toString().trim());
+//            startActivity(intent);
+//            finish();
+//
+//        }
+//    }
     //设置导航栏
     public void initView(){
         toolbar = (Toolbar)findViewById(R.id.toolbar);//获取页面的工具栏
@@ -191,7 +201,7 @@ public class StoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //返回首页
-                Intent intent = new Intent(StoreActivity.this,YGSCateAPP.class);
+                Intent intent = new Intent(StoreActivity.this,FirstActivity.class);
                 startActivity(intent);
             }
         });
