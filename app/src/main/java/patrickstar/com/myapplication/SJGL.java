@@ -1,6 +1,7 @@
 package patrickstar.com.myapplication;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,8 +12,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,7 +30,10 @@ import java.util.List;
 
 import patrickstar.com.myapplication.db.DBOpenHelper;
 import patrickstar.com.myapplication.db.DBShopsinfo;
+import patrickstar.com.myapplication.db.DBShopsmenu;
 import patrickstar.com.myapplication.model.tb_shopsinfo;
+import patrickstar.com.myapplication.model.tb_shopsmenu;
+import  patrickstar.com.myapplication.ViewHolder;
 
 
 public class SJGL extends Activity {
@@ -42,7 +49,13 @@ public class SJGL extends Activity {
     private TextView time;
     private TextView remark;
     private Button modify;
-    private ListView listimage;
+    public List<tb_shopsmenu> data;
+    public int j = 0;
+    public ViewHolder holder = null;//viewholder里面装的有界面上有的所有控件对应的属性//viewholder里面装的有界面上有的所有控件对应的属性
+    public LayoutInflater inflater;//解析xml文件  将xml文件转换成为view
+    private List<tb_shopsmenu> listData;// 用于装数据用的
+    private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +81,12 @@ public class SJGL extends Activity {
                     startActivity(intent);
                 }
             });
+            listData=getdata();
+
+            final SJGLAdapter adapter= new SJGLAdapter(SJGL.this,listData);
+            listView=(ListView) this.findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+
             //tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("2"),"xl","123456","饺子馆","人和食堂","18212322222","img/a.jpeg","8:00 am","");
 
             //DBShopsinfo db = new DBShopsinfo(SJGL.this);
@@ -114,7 +133,18 @@ public class SJGL extends Activity {
                 }
             });
 
+
     }
+    public List<tb_shopsmenu> getdata()
+    {
+        DBShopsmenu db = new DBShopsmenu(SJGL.this);
+        List<tb_shopsmenu> list = db.query();
+        return list;
+
+    }
+
+
+
     //创建数据库
         /*
          DBOpenHelper helpe=new DBOpenHelper(SJGL.this); //创建数据库
