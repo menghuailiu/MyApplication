@@ -1,8 +1,11 @@
 package patrickstar.com.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +32,7 @@ import patrickstar.com.myapplication.model.tb_shopsmenu;
 /***
  *显示商家详细信息，菜单页面
  */
-public class StoreDetail extends AppCompatActivity {
+public class StoreActivity extends AppCompatActivity {
 
     public static final String FLAG = "id";//定义一个常量，用来作为请求码
     String strType = "";//创建字符串，记录类型
@@ -76,7 +80,7 @@ public class StoreDetail extends AppCompatActivity {
 
         listData = getdata();
 
-        final MyAdaptero adapter=new MyAdaptero(StoreDetail.this,listData);
+        final MyAdaptero adapter=new MyAdaptero(StoreActivity.this,listData);
         menuListView=(ListView)this.findViewById(R.id.detaillist);
         menuListView.setAdapter(adapter);
 
@@ -87,20 +91,21 @@ public class StoreDetail extends AppCompatActivity {
 
 
         //给数据库添加商店信息
-//        tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("7"),"al","124456","美味老鸭汤","地址：人和食堂","订餐电话：152123298272","img/a.jpeg","营业时间：8:00 am - 10：00 pm","提供免费wifi");
-//        DBShopsinfo db = new DBShopsinfo(StoreDetail.this);
+//        tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("8"),"al","124456","铁板烧","地址：亨特餐厅","订餐电话：152123298272","img/a.jpeg","营业时间：8:00 am - 10：00 pm","提供免费wifi");
+//        DBShopsinfo db = new DBShopsinfo(StoreActivity.this);
 //        int i =  db.insert(shopsinfo);
-       // 给数据库添加商店信息
-//        tb_shopsmenu cookinfo = new tb_shopsmenu(Long.parseLong("12"),"7","烧鹅拌饭","img/m5.jpeg","8元/份","");
-//        DBShopsmenu db = new DBShopsmenu(StoreDetail.this);
+        // 给数据库添加商店信息
+//        tb_shopsmenu cookinfo = new tb_shopsmenu(Long.parseLong("15"),"8","香米饭","img/m6.jpeg","3元/份","稻花香米独家烹制");
+//        DBShopsmenu db = new DBShopsmenu(StoreActivity.this);
 //        int i =  db.insert(cookinfo);
+
 //        DBShopsinfo shopsinfo = new DBShopsinfo(StoreDetail.this);
         //tb_shopsinfo b = shopsinfo.deleteAll(Id);
 
 
         //调用DAO层方法，查询商店信息
-        DBShopsinfo dstore = new DBShopsinfo(StoreDetail.this);
-        tb_shopsinfo sb = dstore.find(7);//定义一个变量接收查询到的数据
+        DBShopsinfo dstore = new DBShopsinfo(StoreActivity.this);
+        tb_shopsinfo sb = dstore.find(8);//定义一个变量接收查询到的数据
 
 
 
@@ -123,32 +128,60 @@ public class StoreDetail extends AppCompatActivity {
         imgPhoto =(ImageView)findViewById(R.id.storeimage) ;
         String a = sb.getPhoto();
 
-        //从模拟器读取图片
-        final File file = new File(StoreDetail.this.getFilesDir(),"imgs/a.jpeg");
-        Toast.makeText(StoreDetail.this,StoreDetail.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
-        if(file.exists()){
-            imgPhoto.setImageURI(Uri.fromFile(file));
+        //读取数据库图片
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" ;
+        String imgpath=path;
+       // String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication";
+        File f = new File(path+"/img");
+        if(f.exists()) {
+        }
+        else
+        {
+            f.mkdirs();
+        }
+        File file = new File(path+"/img/a.jpeg");//创建一个文件对象
+
+
+
+        if (file.exists()) {
+            Bitmap bm = BitmapFactory.decodeFile(path+"/img/a.jpeg");
+            //将图片显示到ImageView中
+            imgPhoto.setImageBitmap(bm);
         }
 
+
+
+
+//        //从模拟器读取图片
+//        final File file = new File(StoreActivity.this.getFilesDir(),"imgs/a.jpeg");
+//        Toast.makeText(StoreActivity.this,StoreActivity.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
+//        if(file.exists()){
+//            imgPhoto.setImageURI(Uri.fromFile(file));
+//        }
+
         initView();//调用导航栏
-       // ShowInfo(R.id.detaillist);//调用ShowInfo方法，显示菜单信息
 
         //点击拨打电话，进入拨号页面
-        btnCall = (Button) findViewById(R.id.btndian);
-        btnCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = null;
-                intent = new Intent(StoreDetail.this,CallActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
-        });
+        btnCall = (Button) findViewById(R.id.btnCall);
+        btnCall.setOnClickListener(new btnCall());//调用点击方法
 
 
     }
+    class btnCall implements android.view.View.OnClickListener{
+        public void onClick(View view) {
+//            String str = String.valueOf(((TextView) view).getText());
+//            Intent intent = null;
+//            intent = new Intent(StoreActivity.this,CallActivity.class);
+//            startActivity(intent);
+//            finish();
 
+            Intent intent = new Intent(StoreActivity.this,CallActivity.class);
+            intent.putExtra("call",txtmoblie.getText().toString().trim());
+            startActivity(intent);
+            finish();
+
+        }
+    }
     //设置导航栏
     public void initView(){
         toolbar = (Toolbar)findViewById(R.id.toolbar);//获取页面的工具栏
@@ -162,7 +195,7 @@ public class StoreDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //返回首页
-                Intent intent = new Intent(StoreDetail.this,YGSCateAPP.class);
+                Intent intent = new Intent(StoreActivity.this,YGSCateAPP.class);
                 startActivity(intent);
             }
         });
@@ -205,7 +238,7 @@ public class StoreDetail extends AppCompatActivity {
 //
 //            }
 //        });
-  //  }
+    //  }
 
 
     //菜单的list显示调用的getdata方法
@@ -213,13 +246,13 @@ public class StoreDetail extends AppCompatActivity {
     public List<tb_shopsmenu> getdata()
     {
         List<tb_shopsmenu> list=new ArrayList<tb_shopsmenu>();
-        DBShopsmenu db = new DBShopsmenu(StoreDetail.this);
-        List<tb_shopsmenu> listmenu = db.findDataBySHopid(Long.parseLong("7"));
+        DBShopsmenu db = new DBShopsmenu(StoreActivity.this);
+        List<tb_shopsmenu> listmenu = db.findDataBySHopid(Long.parseLong("8"));
         Log.i("-----------------i",String.valueOf(list.size()));
 
         for(int j = 0 ; j<list.size();j++) {
             tb_shopsmenu t = (tb_shopsmenu) list.get(j);
-            Toast.makeText(StoreDetail.this, t.getDishname(), Toast.LENGTH_SHORT);
+            Toast.makeText(StoreActivity.this, t.getDishname(), Toast.LENGTH_SHORT);
 
         }
         //Log.i()
