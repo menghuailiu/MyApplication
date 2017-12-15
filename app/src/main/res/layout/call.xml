@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+   <ImageView
+       android:layout_width="120dp"
+       android:layout_height="120dp"
+       android:layout_centerHorizontal="true"
+       android:gravity="center"
+       android:layout_marginTop="35dp"
+       android:background="@drawable/lianxiren"
+       android:id="@+id/imgcall"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtphone"
+        android:text="15987193425"
+        android:textSize="25dp"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/imgcall"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtcall"
+        android:text="正在拨号……"
+        android:textSize="25dp"
+        android:layout_below="@+id/txtphone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/img1"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/jinyin"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/zhanting"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="70dp"
+            android:layout_toRightOf="@+id/img1"
+            android:id="@+id/img2"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bianqian"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="70dp"
+            android:layout_toRightOf="@+id/img2"
+            android:id="@+id/img3"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shipin"
+            android:layout_below="@+id/img1"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="75dp"
+            android:id="@+id/img4"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tianjia"
+            android:layout_below="@+id/img2"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="185dp"
+            android:id="@+id/img5"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/luyin"
+            android:layout_below="@+id/img3"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="290dp"
+            android:id="@+id/img6"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="免提"
+            android:id="@+id/bntmianti"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="550dp" />
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text=""
+            android:id="@+id/btnguanduan"
+            android:background="@drawable/guanduan"
+            android:layout_marginLeft="175dp"
+            android:layout_marginTop="550dp"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="键盘"
+            android:id="@+id/bntjianpan"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="290dp"
+            android:layout_marginTop="550dp"/>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
