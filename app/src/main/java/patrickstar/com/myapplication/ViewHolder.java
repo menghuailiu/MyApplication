@@ -13,4 +13,6 @@ public class ViewHolder {
     public ImageView img;
     public TextView title1;
     public TextView explain;
+    public TextView shopid;
+    public TextView id;
 }

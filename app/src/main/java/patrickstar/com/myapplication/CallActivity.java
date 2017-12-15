@@ -19,7 +19,6 @@ public class CallActivity extends AppCompatActivity {
     public Button btnjianpan;
     public TextView txtphone;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

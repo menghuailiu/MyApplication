@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -104,8 +105,9 @@ public class StoreActivity extends AppCompatActivity {
 
 
         //调用DAO层方法，查询商店信息
+        String value = getIntent().getStringExtra("id1");
         DBShopsinfo dstore = new DBShopsinfo(StoreActivity.this);
-        tb_shopsinfo sb = dstore.find(8);//定义一个变量接收查询到的数据
+        tb_shopsinfo sb = dstore.find(Integer.valueOf(value));//定义一个变量接收查询到的数据
 
 
 
@@ -118,6 +120,9 @@ public class StoreActivity extends AppCompatActivity {
 
         txtmoblie = (TextView) findViewById(R.id.storemobile);
         txtmoblie.setText(sb.getTel());
+        final String number = txtmoblie.getText().toString();
+        Toast.makeText(StoreActivity.this,number,Toast.LENGTH_LONG).show();
+
 
         txttime = (TextView) findViewById(R.id.storetime);
         txttime.setText(sb.getOpentime());
@@ -130,8 +135,7 @@ public class StoreActivity extends AppCompatActivity {
 
         //读取数据库图片
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" ;
-        String imgpath=path;
-       // String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication";
+
         File f = new File(path+"/img");
         if(f.exists()) {
         }
@@ -163,25 +167,27 @@ public class StoreActivity extends AppCompatActivity {
 
         //点击拨打电话，进入拨号页面
         btnCall = (Button) findViewById(R.id.btnCall);
-        btnCall.setOnClickListener(new btnCall());//调用点击方法
-
-
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:"+number));
+                startActivity(intent);
+            }
+        });//调用点击方法
     }
-    class btnCall implements android.view.View.OnClickListener{
-        public void onClick(View view) {
-//            String str = String.valueOf(((TextView) view).getText());
-//            Intent intent = null;
-//            intent = new Intent(StoreActivity.this,CallActivity.class);
+
+//    //Button按钮的点击传值方法
+//    class btnCall implements android.view.View.OnClickListener{
+//        public void onClick(View view) {
+//            Intent intent = new Intent(StoreActivity.this,CallActivity.class);
+//            intent.putExtra("call",txtmoblie.getText().toString().trim());
 //            startActivity(intent);
 //            finish();
-
-            Intent intent = new Intent(StoreActivity.this,CallActivity.class);
-            intent.putExtra("call",txtmoblie.getText().toString().trim());
-            startActivity(intent);
-            finish();
-
-        }
-    }
+//
+//        }
+//    }
     //设置导航栏
     public void initView(){
         toolbar = (Toolbar)findViewById(R.id.toolbar);//获取页面的工具栏
@@ -195,7 +201,7 @@ public class StoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //返回首页
-                Intent intent = new Intent(StoreActivity.this,YGSCateAPP.class);
+                Intent intent = new Intent(StoreActivity.this,FirstActivity.class);
                 startActivity(intent);
             }
         });
@@ -245,9 +251,15 @@ public class StoreActivity extends AppCompatActivity {
 
     public List<tb_shopsmenu> getdata()
     {
+        //Intent intent = this.getIntent();
+      //  String value = getIntent().getStringExtra("id1");
+       // txtphone = (TextView) findViewById(R.id.txtphone);
+       // txtphone.setText(value);
+       //String receiveName = _getIntent.getExtras().get(id);
+        String value = getIntent().getStringExtra("id1");
         List<tb_shopsmenu> list=new ArrayList<tb_shopsmenu>();
         DBShopsmenu db = new DBShopsmenu(StoreActivity.this);
-        List<tb_shopsmenu> listmenu = db.findDataBySHopid(Long.parseLong("8"));
+        List<tb_shopsmenu> listmenu = db.findDataBySHopid(Long.parseLong(value));
         Log.i("-----------------i",String.valueOf(list.size()));
 
         for(int j = 0 ; j<list.size();j++) {

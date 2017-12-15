@@ -180,6 +180,36 @@ public class DBShopsinfo {
 
 
     /*
+      * 根据地址查询数据
+      */
+    public tb_shopsinfo findbyAddress(String address) {
+        tb_shopsinfo bu = null;
+        try {
+
+            bu = shopsinfoDao.queryBuilder().where(tb_shopsinfoDao.Properties.Address.eq(address)).build().list().get(0);
+        } catch (Exception ex) {
+            return null;
+        }
+        return bu;
+    }
+
+    /*
+ * 根据店名获取商家信息
+ */
+    public List getDataBySname(String tj){
+        List<tb_shopsinfo> bu=null;
+        try {
+
+            bu = shopsinfoDao.queryBuilder().where(tb_shopsinfoDao.Properties.Sname.like(tj)).list();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        return bu;
+    }
+
+    /*
     * 用户登录
    */
     public boolean Login(String userid, String pwd) {

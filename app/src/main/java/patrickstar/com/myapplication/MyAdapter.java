@@ -40,7 +40,7 @@ private  Context context1;
         data = ListData;
         Log.i("数据", String.valueOf(data.size()));
         context1 = context;
-
+//digh
     }
 //dsgcjs
 
@@ -72,6 +72,8 @@ private  Context context1;
             holder.explain = (TextView) view.findViewById(R.id.explain);
             holder.title1 = (TextView) view.findViewById(R.id.title1);
             holder.cb = view.findViewById(R.id.cb);
+            holder.shopid = view.findViewById(R.id.shopid);
+            holder.id = view.findViewById(R.id.id);
             view.setTag(holder);//在view中使用tag标签存储
 
         } else {
@@ -88,6 +90,32 @@ private  Context context1;
       //  holder.img.setBackgroundResource(data.get(i).getPhoto());
         holder.title1.setText(data.get(i).getSname());
         holder.explain.setText(data.get(i).getAddress());
+        holder.shopid.setText(data.get(i).getUserid());
+        holder.id.setText(data.get(i).getId().toString());
+
+
+
+
+    //    TextView text1= (TextView)this.f(R.id.shopid);
+     //   Log.i("数据",""+text1);
+//        final String userid = text1.getText().toString();//调用这个方法就可以获得这个textView的内容了
+//
+//        //点击商店信息，进入到商店详细页面
+//        mListViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
+//
+//                String shopsid = shopsInfo.substring(0,shopsInfo.indexOf(userid));//截取商店name
+//                Toast.makeText(FirstActivity.this,shopsid,Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(FirstActivity.this,StoreDetail.class);
+//                intent.putExtra(FLAG,new String(shopsid));
+//                startActivity(intent);
+//            }
+//        });
+
+
 
         //holder.cb.setChecked(data.get(i).getOpentime());
 
