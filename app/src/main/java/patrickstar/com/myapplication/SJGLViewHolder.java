@@ -9,6 +9,7 @@ import android.widget.TextView;
  */
 
 public class SJGLViewHolder {
+    public  long id;
     public CheckBox cb;
     public ImageView img;
     public TextView title;
