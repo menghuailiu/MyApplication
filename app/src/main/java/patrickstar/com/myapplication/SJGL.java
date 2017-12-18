@@ -183,7 +183,6 @@ public class SJGL extends Activity {
                   for(int i=0;i<listView.getCount();i++){
                       if(SJGLAdapter.isSelected.get(i)){
                           SJGLViewHolder viewHolder = (SJGLViewHolder)listView.getChildAt(i).getTag();
-                         // TextView text=(TextView)listView.getChildAt(i).findViewById(R.id.title1);
 
                           DBShopsmenu db = new DBShopsmenu(SJGL.this);
                           boolean shopsmenu = db.deleteById(viewHolder.id);
