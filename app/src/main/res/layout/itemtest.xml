@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     >
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cb"
-        android:focusable="false"
-        />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -23,20 +16,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#eeffee"
-            android:textSize="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
             android:id="@+id/title1"
+            android:textColor="#000"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+
             android:textSize="15dp"
             android:textColor="#ccc"
             android:id="@+id/explain"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:textColor="#ccc"
             android:id="@+id/shopid"/>
@@ -44,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
-            android:textColor="#ccc"
+            android:textColor="#fff"
             android:id="@+id/id"/>
     </LinearLayout>
 

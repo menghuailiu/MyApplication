@@ -2,6 +2,7 @@ package patrickstar.com.myapplication.db;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.greendao.gen.DaoMaster;
@@ -178,7 +179,6 @@ public class DBShopsinfo {
         return bu;
     }
 
-
     /*
       * 根据地址查询数据
       */
@@ -245,6 +245,79 @@ public class DBShopsinfo {
     return  bu;
 
 }
+
+    /*
+* 获取地址
+*/
+    public List getAddress(){
+        List<String> bu=null;
+        try {
+            String[] str ={"address"};
+            List list = shopsinfoDao.loadAll();
+            List<String> addr =new ArrayList<String>();
+            for (int i =0; i<=list.size()-1;i++){
+                tb_shopsinfo tb = (tb_shopsinfo)list.get(i);
+                addr.add(tb.getAddress());
+            }
+
+            for ( int i = 0 ; i < addr.size() - 1 ; i ++ ) {
+                for ( int j = addr.size() - 1 ; j > i; j -- ) {
+                    if (addr.get(j).equals(addr.get(i))) {
+                        addr.remove(j);
+                    }
+                }
+            }
+            bu = addr;
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return bu;
+    }
+    /*
+ * 根据地址获取数据
+ */
+    public List getshopByAddress(String tj){
+        List<tb_shopsinfo> bu=null;
+        try {
+
+            bu = shopsinfoDao.queryBuilder().where(tb_shopsinfoDao.Properties.Address.like("%"+tj+"%")).list();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+        return bu;
+    }
+
+
+    /*
+* 根据名字获取id
+*/
+    public Long getidBysname(String tj){
+        List<tb_shopsinfo> bu=null;
+        try {
+
+            bu = shopsinfoDao.queryBuilder().where(tb_shopsinfoDao.Properties.Sname.eq(tj)).list();
+            if(bu==null){
+                return  Long.parseLong("0");
+            }
+            else{
+                tb_shopsinfo t = (tb_shopsinfo)bu.get(0);
+                return  t.getId();
+            }
+
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            return  Long.parseLong("0");
+        }
+
+    }
+
+
 
     /**
      * 相等查询,where参数中可以添加多个相等的条件
