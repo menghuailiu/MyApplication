@@ -67,7 +67,7 @@ public class SJGL extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sjgl);
         initView();
-    }//kkl
+    }
         public  void initView(){
             //设置导航栏
            toolbar = (Toolbar)findViewById(R.id.toolbar);//获取页面的工具栏
