@@ -1,7 +1,10 @@
 package patrickstar.com.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +74,7 @@ private  Context context1;
             holder.img = (ImageView) view.findViewById(R.id.img); //使用ViewHOlder绑定view中的控件
             holder.explain = (TextView) view.findViewById(R.id.explain);
             holder.title1 = (TextView) view.findViewById(R.id.title1);
-            holder.cb = view.findViewById(R.id.cb);
+           // holder.cb = view.findViewById(R.id.cb);
             holder.shopid = view.findViewById(R.id.shopid);
             holder.id = view.findViewById(R.id.id);
             view.setTag(holder);//在view中使用tag标签存储
@@ -80,12 +83,23 @@ private  Context context1;
             holder = (ViewHolder) view.getTag();//如果是有值就直接从view中获取
         }
 
-        //从模拟器读取图片getFilesDir()
-        final File file = new File(MyAdapter.this.context1.getFilesDir(),"imgs/a.jpg");
-        Toast.makeText(context1,MyAdapter.this.context1.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT);
-        if(file.exists()){
-            holder.img.setImageURI(Uri.fromFile(file));
+
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" +data.get(i).getPhoto();
+        //imgpath=path;
+        File file = new File(path);//创建一个文件对象
+
+        if (file.exists()) {
+            Bitmap bm = BitmapFactory.decodeFile(path);
+            //将图片显示到ImageView中
+            holder.img.setImageBitmap(bm);
         }
+
+//        //从模拟器读取图片getFilesDir()
+//        final File file = new File(MyAdapter.this.context1.getFilesDir(),"imgs/a.jpg");
+//        Toast.makeText(context1,MyAdapter.this.context1.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT);
+//        if(file.exists()){
+//            holder.img.setImageURI(Uri.fromFile(file));
+//        }
         //赋值
       //  holder.img.setBackgroundResource(data.get(i).getPhoto());
         holder.title1.setText(data.get(i).getSname());

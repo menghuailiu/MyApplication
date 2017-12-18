@@ -16,6 +16,7 @@
     <!-- 模糊搜索 -->
     <SearchView
         android:id="@+id/searchView"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
@@ -23,12 +24,12 @@
         android:imeOptions="actionSearch"
         android:singleLine="true"/>
 
-    <ListView
+   <!-- <ListView
         android:id="@+id/listView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.46" />
-
+-->
 
     <!--图片轮播-->
     <FrameLayout
@@ -106,9 +107,10 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
+        android:paddingTop="20dp"
         android:text="商家展示"
-
+        android:id="@+id/showlist"
         android:background="#EFEFEF"
         />
 
@@ -249,12 +251,22 @@
         </RelativeLayout>
     </LinearLayout>
 -->
-    <ListView
-        android:layout_width="wrap_content"
+
+
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listviewd"
+        android:scrollbars="vertical"
         >
 
-    </ListView>
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listviewd"
+            >
 
+        </ListView>  <!--<ScrollView
+    </ScrollView>
+-->
 </LinearLayout>
+
+

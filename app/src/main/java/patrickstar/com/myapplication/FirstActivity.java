@@ -1,5 +1,6 @@
 package patrickstar.com.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,20 +43,24 @@ import patrickstar.com.myapplication.db.DBOpenHelper;
 import patrickstar.com.myapplication.db.DBShopsinfo;
 import patrickstar.com.myapplication.model.tb_shopsinfo;
 
-public class FirstActivity extends AppCompatActivity {
+public class FirstActivity extends Activity {
     public static final String FLAG = "id";//定义一个常量用来作为请求码，传值给下一个页面
 
     //list控件的定义
     private List<tb_shopsinfo> listData;// 用于装数据用的
+    private List<tb_shopsinfo> listDatas;// 用于装数据用的
+    private List<tb_shopsinfo> listDataad;// 用于装数据用的
     private Button btnheader;
     private ListView  mListViewt;
     private Button btnclick;
 
 
     //模糊搜索
-    private String[] mStrs = {"aaa","fhfh","u7tut"};
+    //private String[] mStrs = {"aaa","fhfh","u7tut"};
     private SearchView mSearchView;
     private ListView mListView;
+    private TextView msearch;
+    private String  searchname;
 
     //菜品陈列
 
@@ -96,30 +102,27 @@ public class FirstActivity extends AppCompatActivity {
 
     //数据列
 
-
+    List<String> listo= new ArrayList<String>();
+    List<String> list= new ArrayList<String>();
   //  List personList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-
-        /*tb_shopsinfo shopsinfo1 = new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","会珍堂","人和食堂","18212322222","img/a.jpeg","8:00 am","");
-
-        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
-        int n =  db.insert(shopsinfo1);
-        tb_shopsinfo tb = db.findbyUserid("ljm");*/
-         //Log.i("userid",tb.getUserid());
-
-
-
+//
+//      tb_shopsinfo shopsinfo1 = new tb_shopsinfo(Long.parseLong("18"),"ljm","123456","dlfw","香味","18212322222","img/dish7.jpg","8:00 am","");
+//
+//        DBShopsinfo dbadd = new DBShopsinfo(FirstActivity.this);
+//        int n =  dbadd.insert(shopsinfo1);
+//        tb_shopsinfo tb = dbadd.findbyUserid("ljm");
+//         Log.i("userid",tb.getUserid());
         listData=getdata();
 
-      final MyAdapter adapter1=new MyAdapter(FirstActivity.this,listData);
+        final MyAdapter adapter1=new MyAdapter(FirstActivity.this,listData);
+       //
         mListViewt=(ListView)this.findViewById(R.id.listviewd);
         mListViewt.setAdapter(adapter1);
-
-//        final String userid = text1.getText().toString();//调用这个方法就可以获得这个textView的内容了
 //
 //        //点击商店信息，进入到商店详细页面
         mListViewt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -143,46 +146,6 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
 
-
-/*
-        personList = new ArrayList();
-
-
-        //把数据库的数据查询出来
-        //在这里写成this，是由于在MyOpenHelper的super构造器中，已经写死了另外三个参数；
-        DBOpenHelper oh = new DBOpenHelper(this);
-        SQLiteDatabase db =  oh.getWritableDatabase();
-        Cursor cursor = db.query("tb_shopsinfo", null, null, null, null, null, null, null,null);
-        while(cursor.moveToNext()){
-            String _id = cursor.getString(0);
-            String name = cursor.getString(1);
-            String salary = cursor.getString(2);
-            String phone = cursor.getString(3);
-
-            //把这几个值封装在一个类中，这种思想要学会；由于p在这里是一局部变量，所以定义了
-            //一个List的全局变量的容器去存放Person类型的变量p;关键学会别人的这种思想；
-            tb_shopsinfo p = new tb_shopsinfo(_id, name, phone, salary);
-            personList.add(p);
-        }
-
-        LinearLayout ll = (LinearLayout) findViewById(R.id.ll);
-        //把数据显示至屏幕
-        for (tb_shopsinfo p : personList) {
-            //注意，TextView除了在layout里边布局之外，也可以单独new出来，
-            //因为其也是一个类，是View类下边的一个子类，只是此时的TextView
-            //和layout还没有关联起来，所以记得加上第3步
-            //1.集合中每有一条元素，就new一个textView
-            TextView tv = new TextView(this);
-            //2.把人物的信息设置为文本框的内容
-            tv.setText(p.toString());
-            tv.setTextSize(18);
-            //设置完上述两条语句并不会把TextView显示在界面上，
-            //所以需要第三步，将其与layout关联起来；
-            //3.把textView设置为线性布局的子节点
-            ll.addView(tv);
-        }
-
-*/
 /*
 
        int iii=0;
@@ -225,46 +188,121 @@ public class FirstActivity extends AppCompatActivity {
 
         //下拉
         spinner = (Spinner) findViewById(R.id.spinner);
+        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+        //  List<tb_shopsinfo> list = db.findAll();
+        list = db.getAddress();
+       /* for(int f = 0;f<=list.size();f++){
+            data_list = new ArrayList<String>();
+            list.get(f);
+           // data_list.add(list[f]);
+        }*/
 
         //数据
-        data_list = new ArrayList<String>();
-        data_list.add("北京");
-        data_list.add("上海");
-        data_list.add("广州");
-        data_list.add("深圳");
+        //data_list = new ArrayList<String>();
+
+
+        //data_list.add("北京");
+       // data_list.add("上海");
+        //data_list.add("广州");
+       // data_list.add("深圳");
 
         //适配器
-        arr_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data_list);
+        arr_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         //设置样式
         arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //加载适配器
         spinner.setAdapter(arr_adapter);
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+
+                    public void onItemSelected(AdapterView<?> parent,
+                                               View view, int position, long id) {
+                        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+                        List<tb_shopsinfo> listo = db.getshopByAddress(list.get(position).toString());
+                        //listData = listo;
+
+                        //adapter1.notifyDataSetChanged();
+                        listDataad = listo;
+                       final MyAdapter adapterad = new MyAdapter(FirstActivity.this, listDataad);
+                       mListViewt.setAdapter(adapterad);
+
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+
+
+
+
 
         //模糊搜索
         mSearchView = (SearchView) findViewById(R.id.searchView);
-        mListView = (ListView) findViewById(R.id.listView);
-        mListView.setAdapter(new ArrayAdapter<String >(this, android.R.layout.simple_list_item_1, mStrs));
-        mListView.setTextFilterEnabled(true);
+        //mListView = (ListView) findViewById(R.id.listviewd);
+        //mListView.setAdapter(new ArrayAdapter<String >(this, android.R.layout.simple_list_item_1, mStrs));
+        //mListView.setTextFilterEnabled(true);
+
 
         // 设置搜索文本监听
+
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             // 当点击搜索按钮时触发该方法
+            TextView showlist = (TextView) findViewById(R.id.showlist);
             @Override
             public boolean onQueryTextSubmit(String query) {
+                if(query.isEmpty()){
+                    listData = getdata();
+                        final MyAdapter adapter = new MyAdapter(FirstActivity.this, listData);
+                        mListViewt.setAdapter(adapter);
+
+                }
+                else {
+                    searchname = query;
+                    listDatas = getdatas();
+                    if(listDatas.size() == 0){
+                        showlist.setText("您搜索的"+query+"店不存在,试试以下商店");
+
+                        //Log.i("您搜索的"+query+"店不存在","试试以下商店");
+                        listDatas = getdata();
+                        final MyAdapter adapter = new MyAdapter(FirstActivity.this, listData);
+                        mListViewt.setAdapter(adapter);
+                    }
+                    else{
+                    final MyAdapter adapters = new MyAdapter(FirstActivity.this, listDatas);
+                    mListViewt.setAdapter(adapters);}
+                }
                 return false;
             }
-
+            //Long uid1 = db.getidBysname(mSearchView.toString());
             // 当搜索内容改变时触发该方法
             @Override
             public boolean onQueryTextChange(String newText) {
+                //Long uid2 = db.getidBysname(mSearchView.toString());
                 if (!TextUtils.isEmpty(newText)){
-                    mListView.setFilterText(newText);
+
                 }else{
-                    mListView.clearTextFilter();
+                   // mListView.clearTextFilter();
                 }
                 return false;
             }
         });
+
+
+//        msearch.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+//
+//            @Override
+//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+//            List<tb_shopsinfo> list = db.findAll();
+//            Long uid = db.getidBysname(mSearchView.toString());
+//
+//                return false;
+//            }
+//        });
+
+
 
 
 
@@ -407,40 +445,30 @@ public class FirstActivity extends AppCompatActivity {
             scheduledExecutorService = null;
         }
 
-
-
-
-
-
-
     }
 
     public List<tb_shopsinfo> getdata()
     {
-        /*List<tb_shopsinfo> list=new ArrayList<tb_shopsinfo>();
-        tb_shopsinfo person=new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","老昆明火锅","人和食堂","18212322222","img/a.jpeg","8:00 am","");
-        list.add(person);
-
-        person=new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","水煮鱼","人和食堂","18212322222","img/a.jpeg","8:00 am","");
-        list.add(person);
-
-
-        person=new tb_shopsinfo(Long.parseLong("1"),"ljm","123456","黄焖鸡","人和食堂","18212322222","img/a.jpeg","8:00 am","");
-        list.add(person);*/
-
-
-//        //从模拟器读取图片
-//        final File file = new File(FirstActivity.this.getFilesDir(),"imgs/a.jpeg");
-//        Toast.makeText(FirstActivity.this,FirstActivity.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
-//        if(file.exists()){
-//            imgPhoto.setImageURI(Uri.fromFile(file));
-//        }
-
         DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
       //  List<tb_shopsinfo> list = db.findAll();
         List<tb_shopsinfo> list = db.findAll();
-
         return list;
+    }
+    public List<tb_shopsinfo> getdatas()
+    {
 
+        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+        //  List<tb_shopsinfo> list = db.findAll();
+        List<tb_shopsinfo> list = db.getDataBySname(searchname);
+        return list;
+    }
+
+    public List<tb_shopsinfo> getdataad()
+    {
+
+        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+        //  List<tb_shopsinfo> list = db.findAll();
+        List<tb_shopsinfo> list = db.getshopByAddress("");
+        return list;
     }
 }
