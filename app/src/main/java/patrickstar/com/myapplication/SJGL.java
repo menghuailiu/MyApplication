@@ -73,6 +73,7 @@ public class SJGL extends Activity {
             //设置导航栏
            toolbar = (Toolbar)findViewById(R.id.toolbar);//获取页面的工具栏
 
+
             toolbar.setTitle(R.string.app_name);
             toolbar.setTitleMarginStart(200);
             toolbar.setTitleMarginTop(10);
