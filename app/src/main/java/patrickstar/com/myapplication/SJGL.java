@@ -108,9 +108,9 @@ public class SJGL extends Activity {
             //DBShopsinfo db = new DBShopsinfo(SJGL.this);
             //int i =  db.insert(shopsinfo);
 
-           tb_shopsmenu shopmemu = new tb_shopsmenu(Long.parseLong("2"),"2","鱼香肉丝","img/b.jpeg","12元","优惠");
-           DBShopsmenu pb = new DBShopsmenu(SJGL.this);
-           int i =  pb.insert(shopmemu) ;
+//           tb_shopsmenu shopmemu = new tb_shopsmenu(Long.parseLong("2"),"2","鱼香肉丝","img/b.jpeg","12元","优惠");
+//           DBShopsmenu pb = new DBShopsmenu(SJGL.this);
+//           int i =  pb.insert(shopmemu) ;
            // boolean a = db.deleteAll();
           // List li = db.findAll();
           // Toast.makeText(SJGL.this,li.size(),Toast.LENGTH_SHORT);
