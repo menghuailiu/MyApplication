@@ -49,6 +49,7 @@ public class FirstActivity extends Activity {
     //list控件的定义
     private List<tb_shopsinfo> listData;// 用于装数据用的
     private List<tb_shopsinfo> listDatas;// 用于装数据用的
+    private List<tb_shopsinfo> listDataad;// 用于装数据用的
     private Button btnheader;
     private ListView  mListViewt;
     private Button btnclick;
@@ -213,13 +214,18 @@ public class FirstActivity extends Activity {
         spinner.setAdapter(arr_adapter);
         spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
+
                     public void onItemSelected(AdapterView<?> parent,
                                                View view, int position, long id) {
                         DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
                         List<tb_shopsinfo> listo = db.getshopByAddress(list.get(position).toString());
-                        listData = listo;
+                        //listData = listo;
 
-                        adapter1.notifyDataSetChanged();
+                        //adapter1.notifyDataSetChanged();
+                        listDataad = listo;
+                       final MyAdapter adapterad = new MyAdapter(FirstActivity.this, listDataad);
+                       mListViewt.setAdapter(adapterad);
+
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -454,6 +460,15 @@ public class FirstActivity extends Activity {
         DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
         //  List<tb_shopsinfo> list = db.findAll();
         List<tb_shopsinfo> list = db.getDataBySname(searchname);
+        return list;
+    }
+
+    public List<tb_shopsinfo> getdataad()
+    {
+
+        DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
+        //  List<tb_shopsinfo> list = db.findAll();
+        List<tb_shopsinfo> list = db.getshopByAddress("");
         return list;
     }
 }
