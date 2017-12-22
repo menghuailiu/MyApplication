@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -52,7 +53,7 @@ public class FirstActivity extends Activity {
     private List<tb_shopsinfo> listDataad;// 用于装数据用的
     private Button btnheader;
     private ListView  mListViewt;
-    private Button btnclick;
+    private ImageButton tlogin;
 
 
     //模糊搜索
@@ -96,31 +97,40 @@ public class FirstActivity extends Activity {
     private TextView title;
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
-  //  private ImageView pic;
-  //  private  TextView name;
-  //  private TextView optime;
+    //  private ImageView pic;
+    //  private  TextView name;
+    //  private TextView optime;
 
     //数据列
 
     List<String> listo= new ArrayList<String>();
     List<String> list= new ArrayList<String>();
-  //  List personList;
+    //  List personList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        //页面跳转登录
+        tlogin = (ImageButton) findViewById(R.id.tlogin);
+        tlogin.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FirstActivity.this,Login.class);
+                startActivity(intent);
+            }
+        });
+
+     // tb_shopsinfo shopsinfo1 = new tb_shopsinfo(Long.parseLong("10"),"ljm","123456","叶师傅菜馆","香味","18212322222","img/yshf.jpg","8:00 am","");
 //
-//      tb_shopsinfo shopsinfo1 = new tb_shopsinfo(Long.parseLong("18"),"ljm","123456","dlfw","香味","18212322222","img/dish7.jpg","8:00 am","");
-//
-//        DBShopsinfo dbadd = new DBShopsinfo(FirstActivity.this);
-//        int n =  dbadd.insert(shopsinfo1);
-//        tb_shopsinfo tb = dbadd.findbyUserid("ljm");
-//         Log.i("userid",tb.getUserid());
+      // DBShopsinfo dbadd = new DBShopsinfo(FirstActivity.this);
+      //  int n =  dbadd.insert(shopsinfo1);
+      //  tb_shopsinfo tb = dbadd.findbyUserid("ljm");
+      //  Log.i("userid",tb.getUserid());
         listData=getdata();
 
         final MyAdapter adapter1=new MyAdapter(FirstActivity.this,listData);
-       //
+        //
         mListViewt=(ListView)this.findViewById(R.id.listviewd);
         mListViewt.setAdapter(adapter1);
 //
@@ -130,7 +140,7 @@ public class FirstActivity extends Activity {
 
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-              //  String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
+                //  String shopsInfo = String.valueOf(((TextView)view).getText());//记录商店信息
 
                 TextView text=(TextView)mListViewt.getChildAt(i).findViewById(R.id.id);
                 text.getText();//调用这个方法就可以获得这个textView的内容了
@@ -164,9 +174,9 @@ public class FirstActivity extends Activity {
             name.setText(t.getSname().toString());
             optime.setText(t.getOpentime().toString());*/
 
-       // }
+        // }
 
-       // LinearLayout item_good_count0=(LinearLayout) findViewById(R.id.item_good_count0);
+        // LinearLayout item_good_count0=(LinearLayout) findViewById(R.id.item_good_count0);
         //把数据显示到屏幕
         /*for(tb_shopsinfo p:list)
         {
@@ -202,9 +212,9 @@ public class FirstActivity extends Activity {
 
 
         //data_list.add("北京");
-       // data_list.add("上海");
+        // data_list.add("上海");
         //data_list.add("广州");
-       // data_list.add("深圳");
+        // data_list.add("深圳");
 
         //适配器
         arr_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
@@ -223,8 +233,8 @@ public class FirstActivity extends Activity {
 
                         //adapter1.notifyDataSetChanged();
                         listDataad = listo;
-                       final MyAdapter adapterad = new MyAdapter(FirstActivity.this, listDataad);
-                       mListViewt.setAdapter(adapterad);
+                        final MyAdapter adapterad = new MyAdapter(FirstActivity.this, listDataad);
+                        mListViewt.setAdapter(adapterad);
 
                     }
 
@@ -254,8 +264,8 @@ public class FirstActivity extends Activity {
             public boolean onQueryTextSubmit(String query) {
                 if(query.isEmpty()){
                     listData = getdata();
-                        final MyAdapter adapter = new MyAdapter(FirstActivity.this, listData);
-                        mListViewt.setAdapter(adapter);
+                    final MyAdapter adapter = new MyAdapter(FirstActivity.this, listData);
+                    mListViewt.setAdapter(adapter);
 
                 }
                 else {
@@ -270,8 +280,8 @@ public class FirstActivity extends Activity {
                         mListViewt.setAdapter(adapter);
                     }
                     else{
-                    final MyAdapter adapters = new MyAdapter(FirstActivity.this, listDatas);
-                    mListViewt.setAdapter(adapters);}
+                        final MyAdapter adapters = new MyAdapter(FirstActivity.this, listDatas);
+                        mListViewt.setAdapter(adapters);}
                 }
                 return false;
             }
@@ -283,7 +293,7 @@ public class FirstActivity extends Activity {
                 if (!TextUtils.isEmpty(newText)){
 
                 }else{
-                   // mListView.clearTextFilter();
+                    // mListView.clearTextFilter();
                 }
                 return false;
             }
@@ -450,7 +460,7 @@ public class FirstActivity extends Activity {
     public List<tb_shopsinfo> getdata()
     {
         DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
-      //  List<tb_shopsinfo> list = db.findAll();
+        //  List<tb_shopsinfo> list = db.findAll();
         List<tb_shopsinfo> list = db.findAll();
         return list;
     }

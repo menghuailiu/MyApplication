@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="patrickstar.com.myapplication">
-    <!--在sdcard中创建/删除文件的权限 -->
+
+    <!-- 在sdcard中创建/删除文件的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <!-- 授予程序使用摄像头的权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
-    <!--授予程序使用摄像头的权限-->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera">
-    </uses-feature>
-    <uses-feature android:name="android.hardware.camera.autofocus">
-    </uses-feature>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,14 +23,30 @@
         <activity
             android:name=".SJGL"
             android:label="@string/title_activity_sjgl"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SJXG"></activity>
+        <activity
+            android:name=".FirstActivity"
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SJXG"></activity>
+        <activity android:name=".DishActivity" />
+        <activity android:name=".StoreDetail" />
+        <activity android:name=".CallActivity" />
+        <activity
+            android:name=".StoreActivity"
+            android:label="@string/title_activity_store"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Login">
+
+        </activity>
+        <activity android:name=".Register"></activity>
+        <activity android:name=".tempActivity"></activity>
+
+
     </application>
 
 </manifest>

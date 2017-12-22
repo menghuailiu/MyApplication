@@ -40,17 +40,19 @@ public class tempActivity extends AppCompatActivity {
     private Uri uri;
     public tb_shopsmenu shopmenu;
     public int flag = 0;//0表示修改，1表示新增
+    public int photoflag= 0;//是否换过图片 0代表没有，1表示有
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         shopmenu = (tb_shopsmenu) getIntent().getSerializableExtra("shopmenu");
-        if (shopmenu.getDishname()==null||shopmenu.getDishname().isEmpty())
-        {
+        if (shopmenu.getDishname() == null || shopmenu.getDishname().isEmpty()) {
             flag = 1;
         }
         Log.i("菜名：", shopmenu.getDishname());
         dialog();
+
+       // newStart();
     }
 
     public void dialog() {
@@ -78,24 +80,33 @@ public class tempActivity extends AppCompatActivity {
 
             }
         });
+        AlertDialog.Builder builder = new AlertDialog.Builder(tempActivity.this);
 
-        new AlertDialog.Builder(this)
-                .setTitle("添加商品")
-                .setView(layout)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setTitle("添加商品");
+        builder.setView(layout);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         save();
+                        
                     }
-                })
-                .setNegativeButton("取消", null)
-                .show();
+                });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        tempActivity.this.finish();
+                    }
+                });
+        builder.create().show();
+       // newStart();
     }
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (data != null) {
+            photoflag =1;
             uri = data.getData();
             ContentResolver cr = this.getContentResolver();
             try {
@@ -111,7 +122,14 @@ public class tempActivity extends AppCompatActivity {
 
     //新增shopmenu
     public void save() {
-        String imagename = saveImage();
+        String imagename;
+        if(flag ==1 || photoflag==1)//要么是新增，要么换了图片
+        {
+            imagename = saveImage();
+        }
+        else{
+            imagename =shopmenu.getPhoto();
+        }
         shopmenu.setDishname(menuname.getText().toString());
         shopmenu.setPhoto(imagename);
         shopmenu.setPrice(menuprice.getText().toString());
@@ -127,6 +145,7 @@ public class tempActivity extends AppCompatActivity {
         } else {
             if (dbShopsmenu.update(shopmenu)) {
                 Toast.makeText(tempActivity.this, "修改成功", Toast.LENGTH_LONG).show();
+
             } else {
                 Toast.makeText(tempActivity.this, "修改失败", Toast.LENGTH_LONG).show();
             }
@@ -153,6 +172,16 @@ public class tempActivity extends AppCompatActivity {
         }
 
         return imagename.replace(":", "") + ".jpg";
+    }
+
+    public void newStart() {
+        Intent intent = new Intent(tempActivity.this,SJGL.class);
+        intent.putExtra("shopid",shopmenu.getShopsinfoid());
+        startActivity(intent);
+    }
+
+    private void cancel(){
+        //newStart();
     }
 
 }

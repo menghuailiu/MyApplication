@@ -7,119 +7,134 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Camera;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
-import patrickstar.com.myapplication.db.DBShopsinfo;
-import patrickstar.com.myapplication.model.tb_shopsinfo;
+import  patrickstar.com.myapplication.model.tb_shopsinfo;
+import  patrickstar.com.myapplication.db.DBShopsinfo;
 
-public class SJXG extends Activity {
+public class Register extends Activity {
     private  static final int PHOTO_REQUEST_CAREMA = 1;//相机
     private  static  final  int PHOTO_REQUEST_GALLERY = 2;//相册
     private static  final int PHOTO_REQUEST_CUT = 3 ;//剪切图片
+    /*    private  static  final  String PHOTO_FILE_NAME = "a.jpeg";*/
+    private File tempFile;
+    private ImageView headIcon;
+    public  Toolbar toolbar;
+
     private Camera camera;//相机对象
     private  boolean isPreview = false;//是否为预览模式
     private  String imgpath=null;
-    private File tempFile;
-    private EditText txtname;
-    private EditText txtaddress;
-    private EditText txtmobile;
-    private EditText txttime;
-    private EditText txtremark;
-    private Button submit;
-    private ImageView image;
-    private Button load;
-     long id;
-    private static DBShopsinfo db ;
-    private static tb_shopsinfo tb;
+
+    private  EditText txtuserid;
+    private  EditText txtpwd;
+    private  EditText txtsname;
+    private  EditText txtaddr;
+    private  EditText txttel;
+    private  EditText txtopentime;
+    private  EditText txtremark;
+    private  Button btnsave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sjxg);
-        if (db == null){
-            db = new DBShopsinfo(SJXG.this);
-        }
-        if (tb == null){
-            Intent intent = getIntent();
-            id = Long.parseLong(intent.getStringExtra("shopid"));
-            tb = db.shopsinfoById(id);
-        }
+        setContentView(R.layout.activity_register);
         initView();
-       // initVIew();
-    }
-    public void initView()
-    {
-        txtname = (EditText)findViewById(R.id.txtname);
-        txtaddress =(EditText)findViewById(R.id.txtaddress);
-        txtmobile =(EditText)findViewById(R.id.txtmobile);
-        txttime  =(EditText)findViewById(R.id.txttime);
-        txtremark  =(EditText)findViewById(R.id.txtremark );
+        initVIew();
 
-        txtname.setText(tb.getSname());
-        txtaddress.setText(tb.getAddress());
-        txtmobile.setText(tb.getTel());
-        txttime.setText(tb.getOpentime());
-        txtremark.setText(tb.getRemark());
+        //绑定控件，
+        txtuserid = (EditText)findViewById(R.id.txtuserid);
+        txtpwd = (EditText)findViewById(R.id.txtpwd);
+        txtsname = (EditText)findViewById(R.id.txtsname);
+        txtaddr = (EditText)findViewById(R.id.txtaddr);
 
-        image =(ImageView)findViewById(R.id.image) ;
-        String a = tb.getPhoto();
-        // image.setImageURI(uri.fromFile(new File(ALBUM_PATH + a)));
-       // final File file = new File(SJXG.this.getFilesDir(),+ date+"r"+ ".jpg");
-       /* Toast.makeText(SJXG.this,SJXG.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
-        if(file.exists()){
-            image.setImageURI(Uri.fromFile(file));
-        }*/
-
-        submit = (Button)findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
+        txttel = (EditText)findViewById(R.id.txttel);
+        txtopentime = (EditText)findViewById(R.id.txtopentime);
+        txtremark = (EditText)findViewById(R.id.txtremark);
+        btnsave = (Button)findViewById(R.id.btnsave);
+        btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
-           public void onClick(View view) {
-
-                tb.setId(id);
-                tb.setSname(txtname.getText().toString());
-                tb.setAddress(txtaddress.getText().toString());
-                tb.setTel(txtmobile.getText().toString());
-                tb.setOpentime(txttime.getText().toString());
-                tb.setRemark(txtremark.getText().toString());
-                tb.setPhoto(imgpath);
-                boolean a =db.update(tb);
-                List list  = db.findAll();
-                if(a=true)
-                {
-                    Intent intent = new Intent(SJXG.this,SJGL.class);
+            public void onClick(View view) {
+                if(txtuserid.getText().toString().length()<1){
+                    Toast.makeText(Register.this,"请输入用户名",Toast.LENGTH_SHORT).show();
+                }
+                else if(txtpwd.getText().toString().length()<1){
+                    Toast.makeText(Register.this,"请输入密码",Toast.LENGTH_SHORT).show();
+                }
+                else if (txtsname.getText().toString().length()<1){
+                    Toast.makeText(Register.this,"请输入店名",Toast.LENGTH_SHORT).show();
+                }
+                else if(txtaddr.getText().toString().length()<1){
+                    Toast.makeText(Register.this,"请输入地址",Toast.LENGTH_SHORT).show();
+                }
+                else  if (txttel.getText().toString().length()<1){
+                    Toast.makeText(Register.this,"请输入电话号码",Toast.LENGTH_SHORT).show();
+                }
+                else  if(txtopentime.getText().toString().length()<1){
+                    Toast.makeText(Register.this,"请输入营业时间",Toast.LENGTH_SHORT).show();
+                }
+                else  if(txtremark.getText().toString().length()<1){
+                    Toast.makeText(Register.this,"请输入备注",Toast.LENGTH_SHORT).show();
+                }
+                else if(imgpath == null){
+                    Toast.makeText(Register.this,"请选择图片",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //获取最大id
+                    DBShopsinfo db = new DBShopsinfo(Register.this);
+                    int id = db.getMax()+1;//获取最大id
+                    tb_shopsinfo tb = new tb_shopsinfo(Long.parseLong(String.valueOf(id)),txtuserid.getText().toString(),txtpwd.getText().toString(),txtsname.getText().toString(),txtaddr.getText().toString(),txttel.getText().toString(),
+                            imgpath, txtopentime.getText().toString(),txtremark.getText().toString());
+                    db.insert(tb);
+                    Intent intent = new Intent(Register.this,Login.class);
                     startActivity(intent);
-
                 }
             }
         });
+    }
 
-        load = (Button)findViewById(R.id.load);
-        load.setOnClickListener(new View.OnClickListener() {
+    //设置导航栏
+    public  void initView(){
+        toolbar = (Toolbar)findViewById(R.id.toolbar1);//获取页面的工具栏
+
+        toolbar.setTitle("用户注册");
+        toolbar.setTitleMarginStart(370);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleMarginTop(10);
+        // setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.bac);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent("android.intent.action.GET_CONTENT");
-                intent.setType("img/*");
-                startActivityForResult(intent, 1);
+                //返回首页
+                Intent intent = new Intent(Register.this,Login.class);
+                startActivity(intent);
             }
         });
     }
@@ -165,18 +180,17 @@ public class SJXG extends Activity {
     //以下是点击图片选择相册
     private  void initVIew(){
         //绑定页面imageview控件，给图片设计点击事件
-        image = (ImageView)findViewById(R.id.image);
-        image.setOnClickListener(new View.OnClickListener() {
+        headIcon = (ImageView)findViewById(R.id.headIcon);
+        headIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeHeadIcon();
             }
         });
         changeTheme();
-        String a = tb.getPhoto();
-        File file = new File(a);
+        File file = new File(Register.this.getFilesDir(),"a.jpeg");
         if(file.exists()){
-            image.setImageURI(Uri.fromFile(file));
+            headIcon.setImageURI(Uri.fromFile(file));
         }
     }
 
@@ -188,9 +202,9 @@ public class SJXG extends Activity {
             if (pic.length() < 1) {
 
             } else {
-                Toast.makeText(SJXG.this, "ohahha", Toast.LENGTH_SHORT).show();//弹出提示
+                Toast.makeText(Register.this, "ohahha", Toast.LENGTH_SHORT).show();//弹出提示
                 if (!android.os.Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    Toast.makeText(SJXG.this, "请安装SD卡", Toast.LENGTH_SHORT).show();//弹出提示
+                    Toast.makeText(Register.this, "请安装SD卡", Toast.LENGTH_SHORT).show();//弹出提示
                 }
 
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" + pic + ".jpg";
@@ -200,15 +214,15 @@ public class SJXG extends Activity {
                 if (file.exists()) {
                     Bitmap bm = BitmapFactory.decodeFile(path);
                     //将图片显示到ImageView中
-                    image.setImageBitmap(bm);
+                    headIcon.setImageBitmap(bm);
                 }
             }
         }catch (Exception e) {
-            Toast.makeText(SJXG.this, "bbugbug", Toast.LENGTH_SHORT).show();//弹出提示
+            Toast.makeText(Register.this, "bbugbug", Toast.LENGTH_SHORT).show();//弹出提示
             Calendar c = Calendar.getInstance();
             System.out.println(c.get(Calendar.HOUR_OF_DAY));//输出事件
             if ((c.get(Calendar.HOUR_OF_DAY)) < 18 && (c.get(Calendar.HOUR_OF_DAY)) >= 6) {
-                image.setImageResource(R.drawable.g);
+                headIcon.setImageResource(R.drawable.g);
             }
         }
     }
@@ -216,7 +230,7 @@ public class SJXG extends Activity {
     //设置弹出框的内容  修改图片
     private void changeHeadIcon(){
         final  CharSequence[] items = {"相册","拍照"};
-        AlertDialog dlg = new AlertDialog.Builder(SJXG.this).setTitle("选择图片").
+        AlertDialog dlg = new AlertDialog.Builder(Register.this).setTitle("选择图片").
                 setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -228,7 +242,7 @@ public class SJXG extends Activity {
                         }
                         else{
                             //跳转到拍照页面
-                            Intent intent = new Intent(SJXG.this,CameraPic.class);
+                            Intent intent = new Intent(Register.this,CameraPic.class);
                             startActivity(intent);
                         }
                     }
@@ -250,14 +264,14 @@ public class SJXG extends Activity {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 crop(Uri.fromFile(tempFile));
             } else {
-                Toast.makeText(SJXG.this, "未找到存储卡，无法存储照片！",
+                Toast.makeText(Register.this, "未找到存储卡，无法存储照片！",
                         Toast.LENGTH_SHORT).show();
             }
 
         } else if (requestCode == PHOTO_REQUEST_CUT) {
             if (data != null) {
                 final Bitmap bitmap = data.getParcelableExtra("data");
-                image.setImageBitmap(bitmap);
+                headIcon.setImageBitmap(bitmap);
                 // 保存图片到internal storage
                 FileOutputStream outputStream;
                 try {
@@ -267,19 +281,10 @@ public class SJXG extends Activity {
 
                     //outputStream = Register.this.openFileOutput("_head_icon.jpg", Context.MODE_PRIVATE);
                     if (!android.os.Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                        Toast.makeText(SJXG.this, "请安装SD卡", Toast.LENGTH_SHORT).show();//弹出提示
+                        Toast.makeText(Register.this, "请安装SD卡", Toast.LENGTH_SHORT).show();//弹出提示
                     }
                     SimpleDateFormat sDateFormat    =   new    SimpleDateFormat("yyyyMMddhhmmss");
                     String    date    =    sDateFormat.format(new    java.util.Date());
-
-                    String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication";
-                    File f = new File(path);
-                    if(f.exists()) {
-                    }
-                    else
-                    {
-                        f.mkdirs();
-                    }
                     File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" + date+"r"+ ".jpg");//创建一个文件对象
                     imgpath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" + date+"r"+ ".jpg";
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -313,5 +318,6 @@ public class SJXG extends Activity {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }
+
 
 }

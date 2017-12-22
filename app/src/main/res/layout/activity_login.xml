@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:minHeight="50dp"
+        app:titleTextColor="#ffffff"
+        android:gravity="center"
+        android:textAlignment="center"
+        >
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/ygslogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:src="@drawable/ygslogo1" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/ygslogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:hint="请输入用户名"
+        android:id="@+id/txtuserid" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/txtuserid"
+        android:layout_alignStart="@+id/txtuserid"
+        android:layout_below="@+id/txtuserid"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:id="@+id/txtpwd" />
+
+    <Button
+        android:layout_width="135dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/txtpwd"
+        android:layout_alignStart="@+id/txtpwd"
+        android:layout_below="@+id/txtpwd"
+        android:layout_marginTop="19dp"
+        android:text="登录"
+        android:id="@+id/btnlogin" />
+
+    <Button
+        android:layout_width="135dp"
+        android:layout_height="60dp"
+        android:layout_alignRight="@+id/txtpwd"
+        android:layout_alignEnd="@+id/txtpwd"
+        android:layout_below="@+id/txtpwd"
+        android:layout_marginTop="19dp"
+        android:text="注册"
+        android:id="@+id/btnregister"/>
+</RelativeLayout>

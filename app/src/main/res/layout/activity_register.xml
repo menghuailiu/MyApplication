@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:minHeight="50dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        >
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/txtuserid"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar1"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:hint="请输入用户名" />
+
+    <EditText
+        android:id="@+id/txtpwd"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtuserid"
+        android:layout_alignStart="@+id/txtuserid"
+        android:layout_below="@+id/txtuserid"
+        android:layout_marginTop="5dp"
+        android:inputType="textPassword"
+        android:hint="请输入密码" />
+
+    <EditText
+        android:id="@+id/txtsname"
+        android:layout_width="270dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtpwd"
+        android:layout_alignStart="@+id/txtpwd"
+        android:layout_below="@+id/txtpwd"
+        android:hint="请输入店名" />
+    <EditText
+        android:id="@+id/txtaddr"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtsname"
+        android:layout_alignStart="@+id/txtsname"
+        android:layout_below="@+id/txtsname"
+        android:layout_marginTop="1dp"
+        android:hint="请输入地址" />
+    <EditText
+        android:id="@+id/txttel"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtaddr"
+        android:layout_alignStart="@+id/txtaddr"
+        android:layout_below="@+id/txtaddr"
+        android:inputType="phone"
+        android:hint="请输入电话" />
+    <EditText
+        android:id="@+id/txtopentime"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txttel"
+        android:layout_alignStart="@+id/txttel"
+        android:layout_below="@+id/txttel"
+        android:hint="请输入营业时间" />
+
+    <EditText
+        android:id="@+id/txtremark"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtopentime"
+        android:layout_alignStart="@+id/txtopentime"
+        android:layout_below="@+id/txtopentime"
+        android:hint="请输入备注" />
+
+    <ImageView
+        android:id="@+id/headIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/txtremark"
+        android:layout_alignStart="@+id/txtremark"
+        android:layout_below="@+id/txtremark"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="50dp"
+        android:src="@drawable/g"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/headIcon"
+        android:layout_alignEnd="@+id/txtremark"
+        android:layout_alignRight="@+id/txtremark"
+        android:text="保存"
+        android:id="@+id/btnsave"/>
+</RelativeLayout>

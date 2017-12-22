@@ -4,13 +4,15 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
+import java.io.Serializable;
+
 /**
  * Created by sysadmin on 2017/12/11.
  */
 
 //_id integer primary key ,shopsinfoid integer,dishname varchar(100),photo varchar(500),price decimal,remark varchar(300)
 @Entity
-public class tb_shopsmenu {
+public class tb_shopsmenu implements Serializable{
     @Id
     private Long id;
     private String shopsinfoid;

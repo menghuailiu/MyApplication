@@ -46,7 +46,7 @@ public class StoreActivity extends AppCompatActivity {
     TextView txttime;//营业时间
     ImageView imgPhoto;//照片
     TextView txtremark;//备注
-    Button btnCall;//拨打电话
+    Button btnCal;//拨打电话
     Toolbar toolbar;//导航栏
 
 
@@ -63,20 +63,6 @@ public class StoreActivity extends AppCompatActivity {
         setContentView(R.layout.storedetail);
 
 
-        //查询菜单
-//        int iii=0;
-//        DBShopsmenu db = new DBShopsmenu(StoreDetail.this);
-//        List<tb_shopsmenu> list = db.findDataBySHopid(Long.parseLong("3"));
-//        Log.i("-----------------i",String.valueOf(list.size()));
-//
-//        for(int j = 0 ; j<list.size();j++) {
-//            tb_shopsmenu t = (tb_shopsmenu) list.get(j);
-//            Toast.makeText(StoreDetail.this, t.getDishname(), Toast.LENGTH_SHORT);
-//
-//        }
-
-
-
         //菜单list的内容
 
         listData = getdata();
@@ -84,11 +70,6 @@ public class StoreActivity extends AppCompatActivity {
         final MyAdaptero adapter=new MyAdaptero(StoreActivity.this,listData);
         menuListView=(ListView)this.findViewById(R.id.detaillist);
         menuListView.setAdapter(adapter);
-
-
-
-
-
 
 
         //给数据库添加商店信息
@@ -121,7 +102,6 @@ public class StoreActivity extends AppCompatActivity {
         txtmoblie = (TextView) findViewById(R.id.storemobile);
         txtmoblie.setText(sb.getTel());
         final String number = txtmoblie.getText().toString();
-        Toast.makeText(StoreActivity.this,number,Toast.LENGTH_LONG).show();
 
 
         txttime = (TextView) findViewById(R.id.storetime);
@@ -145,17 +125,11 @@ public class StoreActivity extends AppCompatActivity {
         }
         File file = new File(path+"/img/a.jpeg");//创建一个文件对象
 
-
-
         if (file.exists()) {
             Bitmap bm = BitmapFactory.decodeFile(path+"/img/a.jpeg");
             //将图片显示到ImageView中
             imgPhoto.setImageBitmap(bm);
         }
-
-
-
-
 //        //从模拟器读取图片
 //        final File file = new File(StoreActivity.this.getFilesDir(),"imgs/a.jpeg");
 //        Toast.makeText(StoreActivity.this,StoreActivity.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
@@ -166,8 +140,8 @@ public class StoreActivity extends AppCompatActivity {
         initView();//调用导航栏
 
         //点击拨打电话，进入拨号页面
-        btnCall = (Button) findViewById(R.id.btnCall);
-        btnCall.setOnClickListener(new View.OnClickListener() {
+        btnCal = (Button) findViewById(R.id.btnCal);
+        btnCal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -178,16 +152,6 @@ public class StoreActivity extends AppCompatActivity {
         });//调用点击方法
     }
 
-//    //Button按钮的点击传值方法
-//    class btnCall implements android.view.View.OnClickListener{
-//        public void onClick(View view) {
-//            Intent intent = new Intent(StoreActivity.this,CallActivity.class);
-//            intent.putExtra("call",txtmoblie.getText().toString().trim());
-//            startActivity(intent);
-//            finish();
-//
-//        }
-//    }
     //设置导航栏
     public void initView(){
         toolbar = (Toolbar)findViewById(R.id.toolbar);//获取页面的工具栏
@@ -207,55 +171,14 @@ public class StoreActivity extends AppCompatActivity {
         });
 
     }
-    //定义ShowInfo方法，通过上一页面传来的商店id查询数据
-//    private void ShowInfo(int storeid) {
-//        String[] strInfos = null;//定义字符串数组，用来接存储商店详细信息
-//        ArrayAdapter<String> arrayAdapter = null;
-//        strType = "btninfo";//为strType赋值
-//
-//
-//        //调用dao类，实例化对象
-//        DBShopsmenu list = new DBShopsmenu(StoreDetail.this);
-//
-//        //获取所有菜单信息，并存储到List泛型集合中
-//        List<tb_shopsmenu> listinfos = list.findDataBySHopid(Long.parseLong("5"));
-//        strInfos = new String[listinfos.size()];
-//        int m = 0;
-//        for(tb_shopsmenu tb:listinfos)
-//        {
-//            //将菜单信息组合成一个字符串，存储到字符串数组的相应位置
-//            strInfos[m] = tb.getPhoto()+"||"+tb.getDishname()+"|"+tb.getPrice()+"|"+tb.getRemark();
-//            m++;
-//
-//        }
-//
-//        //使用字符串数组初始化ArrayAdaper对象
-////        arrayAdapter = new ArrayAdapter<String>(this,strInfos,R.layout.storeitem,
-////                new String[]{"","","",""},
-////                new int[]{R.id.imgcai,R.id.txtcname,R.id.txtcprice,R.id.txtcremack});
-//        arrayAdapter = new ArrayAdapter<String>(this,R.layout.storeitem,strInfos);
-//        dList.setAdapter(arrayAdapter);//为ListView列表设置数据源
-//
-//
-//        //点击指定项时，打开详细信息(点击订餐打开拨号界面)
-//        dList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//        });
-    //  }
-
-
     //菜单的list显示调用的getdata方法
-
     public List<tb_shopsmenu> getdata()
     {
         //Intent intent = this.getIntent();
-      //  String value = getIntent().getStringExtra("id1");
-       // txtphone = (TextView) findViewById(R.id.txtphone);
-       // txtphone.setText(value);
-       //String receiveName = _getIntent.getExtras().get(id);
+        //  String value = getIntent().getStringExtra("id1");
+        // txtphone = (TextView) findViewById(R.id.txtphone);
+        // txtphone.setText(value);
+        //String receiveName = _getIntent.getExtras().get(id);
         String value = getIntent().getStringExtra("id1");
         List<tb_shopsmenu> list=new ArrayList<tb_shopsmenu>();
         DBShopsmenu db = new DBShopsmenu(StoreActivity.this);

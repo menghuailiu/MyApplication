@@ -10,6 +10,7 @@
         android:focusableInTouchMode="false"
         android:clickable="false"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:visibility="gone"
         />
     <ImageView
         android:layout_width="100dp"

@@ -26,16 +26,18 @@ import android.widget.CheckBox;
 
 public class SJGLAdapter extends BaseAdapter {
 
-private  Context context1;
+    private  Context context1;
     public static Map<Integer, Boolean> isSelected;
     public List<tb_shopsmenu> data;
     public int j = 0;
     public SJGLViewHolder holder = null;//viewholder里面装的有界面上有的所有控件对应的属性//viewholder里面装的有界面上有的所有控件对应的属性
 
     public LayoutInflater inflater;//解析xml文件  将xml文件转换成为view
+    public int flag = 0;//复选框默认不显示
 
 
-    public SJGLAdapter(Context context, List<tb_shopsmenu> ListData) {
+    public SJGLAdapter(Context context, List<tb_shopsmenu> ListData,int flag) {
+        this.flag =flag;
         this.inflater = LayoutInflater.from(context);//解析context转换成view  setcontentview也有调用到LayoutInflater
         data = ListData;
         Log.i("数据", String.valueOf(data.size()));
@@ -90,11 +92,14 @@ private  Context context1;
             //将图片显示到ImageView中
             holder.img.setImageBitmap(bm);
         }
-         //赋值
+        //赋值
         holder.id = data.get(i).getId();
         holder.title.setText(data.get(i).getDishname());
         holder.explain.setText(data.get(i).getPrice());
         holder.cb.setChecked(false);
+        if(flag==1) {
+            holder.cb.setVisibility(View.VISIBLE);
+        }
         Log.i("数据", String.valueOf(view));
 
         return view;//赋值好的view返回

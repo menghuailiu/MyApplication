@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MyAdapter extends BaseAdapter {
 
-private  Context context1;
+    private  Context context1;
 
 
     public List<tb_shopsinfo> data;
@@ -74,7 +74,7 @@ private  Context context1;
             holder.img = (ImageView) view.findViewById(R.id.img); //使用ViewHOlder绑定view中的控件
             holder.explain = (TextView) view.findViewById(R.id.explain);
             holder.title1 = (TextView) view.findViewById(R.id.title1);
-           // holder.cb = view.findViewById(R.id.cb);
+            // holder.cb = view.findViewById(R.id.cb);
             holder.shopid = view.findViewById(R.id.shopid);
             holder.id = view.findViewById(R.id.id);
             view.setTag(holder);//在view中使用tag标签存储
@@ -101,7 +101,7 @@ private  Context context1;
 //            holder.img.setImageURI(Uri.fromFile(file));
 //        }
         //赋值
-      //  holder.img.setBackgroundResource(data.get(i).getPhoto());
+        //  holder.img.setBackgroundResource(data.get(i).getPhoto());
         holder.title1.setText(data.get(i).getSname());
         holder.explain.setText(data.get(i).getAddress());
         holder.shopid.setText(data.get(i).getUserid());
@@ -110,8 +110,8 @@ private  Context context1;
 
 
 
-    //    TextView text1= (TextView)this.f(R.id.shopid);
-     //   Log.i("数据",""+text1);
+        //    TextView text1= (TextView)this.f(R.id.shopid);
+        //   Log.i("数据",""+text1);
 //        final String userid = text1.getText().toString();//调用这个方法就可以获得这个textView的内容了
 //
 //        //点击商店信息，进入到商店详细页面

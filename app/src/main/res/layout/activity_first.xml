@@ -3,26 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
+android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context="patrickstar.com.myapplication.FirstActivity"
     android:focusable="true"
-    android:focusableInTouchMode="true">
-    <!-- 下拉搜索 -->
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <!-- 模糊搜索 -->
-    <SearchView
-        android:id="@+id/searchView"
+    android:focusableInTouchMode="true"
+    android:background="#fff">
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="请输入搜索内容"
-        android:imeOptions="actionSearch"
-        android:singleLine="true"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/bgm"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/tlogin"
+            />
+        <!-- 下拉搜索 -->
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <!-- 模糊搜索 -->
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/spinner"
+            android:iconifiedByDefault="false"
+            android:queryHint="请输入搜索内容"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"/>
+    </RelativeLayout>
+
+
+
+
 
    <!-- <ListView
         android:id="@+id/listView"
