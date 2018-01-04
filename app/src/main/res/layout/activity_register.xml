@@ -10,7 +10,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
+        android:background="#f88f07"
+        android:alpha="0.5"
         android:minHeight="50dp"
         android:gravity="center"
         android:textAlignment="center"
@@ -103,6 +104,10 @@
         android:layout_alignBottom="@+id/headIcon"
         android:layout_alignEnd="@+id/txtremark"
         android:layout_alignRight="@+id/txtremark"
+        android:background="@drawable/buttonstyle"
+        android:alpha="0.6"
         android:text="保存"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
         android:id="@+id/btnsave"/>
 </RelativeLayout>

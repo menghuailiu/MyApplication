@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:layout_margin="10dp"
+    android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context="patrickstar.com.myapplication.FirstActivity"
     android:focusable="true"
@@ -16,18 +16,19 @@ android:layout_margin="10dp"
 
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/bgm"
+            android:id="@+id/tlogin"
+            android:layout_width="30dp"
+            android:layout_height="29dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:id="@+id/tlogin"
-            />
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/bgm1" />
         <!-- 下拉搜索 -->
         <Spinner
             android:id="@+id/spinner"
             android:layout_marginTop="40dp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             />
         <!-- 模糊搜索 -->
@@ -47,12 +48,12 @@ android:layout_margin="10dp"
 
 
 
-   <!-- <ListView
-        android:id="@+id/listView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.46" />
--->
+    <!-- <ListView
+         android:id="@+id/listView"
+         android:layout_width="wrap_content"
+         android:layout_height="0dp"
+         android:layout_weight="0.46" />
+ -->
 
     <!--图片轮播-->
     <FrameLayout
@@ -168,9 +169,9 @@ android:layout_margin="10dp"
 -->
 
 
-        <!--
-        商家展示
-        -->
+    <!--
+    商家展示
+    -->
     <!--
         <ImageView
 
@@ -276,18 +277,18 @@ android:layout_margin="10dp"
 -->
 
 
-        android:layout_width="fill_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
+    >
+
+    <ListView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
+        android:id="@+id/listviewd"
         >
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listviewd"
-            >
-
-        </ListView>  <!--<ScrollView
+    </ListView>  <!--<ScrollView
     </ScrollView>
 -->
 </LinearLayout>

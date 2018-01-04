@@ -1,9 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+   android:background="@drawable/loginbg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:minHeight="50dp"
+        app:titleTextColor="#ffffff"
+        android:gravity="center"
+        android:textAlignment="center"
+        >
+    </android.support.v7.widget.Toolbar>
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    android:layout_marginTop="120dp"
+    android:background="#000"
+    android:alpha="0.3"
+    android:layout_marginLeft="30dp"
+    android:id="@+id/inputlayout"
+    >
+
+    <EditText
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:hint="请输入用户名"
+        android:textColorHint="#ffffff"
+        android:background="@drawable/textview_border"
+        android:textColor="#ffffff"
+        android:id="@+id/txtuserid" />
+
+    <EditText
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/txtuserid"
+        android:layout_alignStart="@+id/txtuserid"
+        android:layout_below="@+id/txtuserid"
+        android:alpha="1"
+        android:hint="请输入密码"
+        android:textSize="25dp"
+        android:textColorHint="#ffffff"
+        android:textColor="#ffffff"
+        android:background="@drawable/textview_border"
+        android:inputType="textPassword"
+        android:id="@+id/txtpwd" />
+</RelativeLayout>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/inputlayout"
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/buttonstyle"
+        android:text="登录"
+        android:textSize="25dp"
+        android:textColor="#ffffff"
+        android:alpha="0.3"
+        android:id="@+id/btnlogin" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/inputlayout"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="19dp"
+        android:text="注册"
+        android:background="@drawable/buttonstyle"
+        android:textSize="25dp"
+        android:textColor="#ffffff"
+        android:alpha="0.3"
+        android:id="@+id/btnregister"/>
+
+</RelativeLayout>
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#ffffff"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -67,3 +156,4 @@
         android:text="注册"
         android:id="@+id/btnregister"/>
 </RelativeLayout>
+-->

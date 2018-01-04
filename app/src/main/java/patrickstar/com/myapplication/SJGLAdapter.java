@@ -83,7 +83,7 @@ public class SJGLAdapter extends BaseAdapter {
             holder = (SJGLViewHolder) view.getTag();//如果是有值就直接从view中获取
         }
 
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" +data.get(i).getPhoto();
+        String path =data.get(i).getPhoto();
         //imgpath=path;
         File file = new File(path);//创建一个文件对象
 

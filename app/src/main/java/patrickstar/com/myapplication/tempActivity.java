@@ -1,6 +1,8 @@
 package patrickstar.com.myapplication;
 
+import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,7 +33,7 @@ import patrickstar.com.myapplication.db.DBShopsinfo;
 import patrickstar.com.myapplication.db.DBShopsmenu;
 import patrickstar.com.myapplication.model.tb_shopsmenu;
 
-public class tempActivity extends AppCompatActivity {
+public class tempActivity extends Activity {
     public View layout;
     public ImageView pic;
     public EditText menuname, menuprice, menunote;
@@ -64,7 +68,15 @@ public class tempActivity extends AppCompatActivity {
         menunote = layout.findViewById(R.id.notes);
         Button uplaod = layout.findViewById(R.id.uploadimage);
         String a = shopmenu.getPhoto();
-        pic.setImageURI(uri.fromFile(new File(ALBUM_PATH + a)));
+        try {
+            File file = new File(a);//创建一个文件对象
+            if (file.exists()) {
+               pic.setImageURI(uri.fromFile(new File(a)));
+            }
+        }
+        catch (Exception ex){
+             ex.printStackTrace();
+        }
         menuname.setText(shopmenu.getDishname());
         shopmenu.setPhoto(shopmenu.getPhoto());
         menuprice.setText(shopmenu.getPrice());
@@ -131,7 +143,8 @@ public class tempActivity extends AppCompatActivity {
             imagename =shopmenu.getPhoto();
         }
         shopmenu.setDishname(menuname.getText().toString());
-        shopmenu.setPhoto(imagename);
+      //  shopmenu.setPhoto(imagename);  注释 罗
+        shopmenu.setPhoto(ALBUM_PATH+imagename);
         shopmenu.setPrice(menuprice.getText().toString());
         shopmenu.setRemark(menunote.getText().toString());
 
@@ -139,15 +152,18 @@ public class tempActivity extends AppCompatActivity {
         if (flag == 1) {
             if (dbShopsmenu.insert(shopmenu) > 0) {
                 Toast.makeText(tempActivity.this, "添加成功", Toast.LENGTH_LONG).show();
+                tempActivity.this.finish();
             } else {
                 Toast.makeText(tempActivity.this, "添加失败", Toast.LENGTH_LONG).show();
+                tempActivity.this.finish();
             }
         } else {
             if (dbShopsmenu.update(shopmenu)) {
-                Toast.makeText(tempActivity.this, "修改成功", Toast.LENGTH_LONG).show();
+                tempActivity.this.finish();
 
             } else {
                 Toast.makeText(tempActivity.this, "修改失败", Toast.LENGTH_LONG).show();
+                tempActivity.this.finish();
             }
         }
     }
@@ -182,6 +198,45 @@ public class tempActivity extends AppCompatActivity {
 
     private void cancel(){
         //newStart();
+    }
+
+    //以下代码是隐藏键盘  点击其它地方隐藏键盘
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return onTouchEvent(ev);
+    }
+    public  boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = { 0, 0 };
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            if (event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom) {
+                // 点击的是输入框区域，保留点击EditText的事件
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

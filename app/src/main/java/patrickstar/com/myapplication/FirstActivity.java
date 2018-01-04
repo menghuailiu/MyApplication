@@ -88,11 +88,11 @@ public class FirstActivity extends Activity {
     };
     //存放图片的标题
     private String[]  titles = new String[]{
-            "巩俐不低俗，我就不能低俗",
-            "扑树又回来啦！再唱经典老歌引万人大合唱",
-            "揭秘北京电影如何升级",
-            "乐视网TV版大派送",
-            "热血屌丝的反杀"
+            "滋养在心，健康在身",
+            "尽享天下美食，体味百味生活!",
+            "方便自如！鲜咸合一!",
+            "飘香桂花年糕，品尝过目难忘",
+            "熬的是汤，暖的是心"
     };
     private TextView title;
     private ViewPagerAdapter adapter;
@@ -105,6 +105,7 @@ public class FirstActivity extends Activity {
 
     List<String> listo= new ArrayList<String>();
     List<String> list= new ArrayList<String>();
+    List<String> listnew= new ArrayList<String>();
     //  List personList;
 
     @Override
@@ -121,12 +122,12 @@ public class FirstActivity extends Activity {
             }
         });
 
-     // tb_shopsinfo shopsinfo1 = new tb_shopsinfo(Long.parseLong("10"),"ljm","123456","叶师傅菜馆","香味","18212322222","img/yshf.jpg","8:00 am","");
+        // tb_shopsinfo shopsinfo1 = new tb_shopsinfo(Long.parseLong("10"),"ljm","123456","叶师傅菜馆","香味","18212322222","img/yshf.jpg","8:00 am","");
 //
-      // DBShopsinfo dbadd = new DBShopsinfo(FirstActivity.this);
-      //  int n =  dbadd.insert(shopsinfo1);
-      //  tb_shopsinfo tb = dbadd.findbyUserid("ljm");
-      //  Log.i("userid",tb.getUserid());
+        // DBShopsinfo dbadd = new DBShopsinfo(FirstActivity.this);
+        //  int n =  dbadd.insert(shopsinfo1);
+        //  tb_shopsinfo tb = dbadd.findbyUserid("ljm");
+        //  Log.i("userid",tb.getUserid());
         listData=getdata();
 
         final MyAdapter adapter1=new MyAdapter(FirstActivity.this,listData);
@@ -200,12 +201,13 @@ public class FirstActivity extends Activity {
         spinner = (Spinner) findViewById(R.id.spinner);
         DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
         //  List<tb_shopsinfo> list = db.findAll();
-        list = db.getAddress();
-       /* for(int f = 0;f<=list.size();f++){
-            data_list = new ArrayList<String>();
-            list.get(f);
-           // data_list.add(list[f]);
-        }*/
+        listnew = db.getAddress();
+        list.add("选择地址");
+        for(int f = 0;f<listnew.size();f++){
+            //list = new ArrayList<String>();
+            String a = listnew.get(f).toString();
+            list.add(a);
+        }
 
         //数据
         //data_list = new ArrayList<String>();
@@ -228,13 +230,19 @@ public class FirstActivity extends Activity {
                     public void onItemSelected(AdapterView<?> parent,
                                                View view, int position, long id) {
                         DBShopsinfo db = new DBShopsinfo(FirstActivity.this);
-                        List<tb_shopsinfo> listo = db.getshopByAddress(list.get(position).toString());
-                        //listData = listo;
+                        if(list.get(position).toString()=="选择地址"){
+                            listDataad = listData;
+                            final MyAdapter adapteraadd = new MyAdapter(FirstActivity.this, listDataad);
+                            mListViewt.setAdapter(adapteraadd);
+                        }
+                        else{
+                            List<tb_shopsinfo> listo = db.getshopByAddress(list.get(position).toString());
+                            //listData = listo;
 
-                        //adapter1.notifyDataSetChanged();
-                        listDataad = listo;
-                        final MyAdapter adapterad = new MyAdapter(FirstActivity.this, listDataad);
-                        mListViewt.setAdapter(adapterad);
+                            //adapter1.notifyDataSetChanged();
+                            listDataad = listo;
+                            final MyAdapter adapterad = new MyAdapter(FirstActivity.this, listDataad);
+                            mListViewt.setAdapter(adapterad);}
 
                     }
 

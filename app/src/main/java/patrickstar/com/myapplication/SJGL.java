@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.RecyclerView;
 
 import android.support.v7.widget.Toolbar;
@@ -23,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,9 +34,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.greendao.generator.ToMany;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import patrickstar.com.myapplication.db.DBOpenHelper;
@@ -74,7 +81,7 @@ public class SJGL extends AppCompatActivity {
     private DBShopsmenu pb;
     public String userid;
 
-
+   public  Boolean isfirst = false;
 
 
 
@@ -82,6 +89,24 @@ public class SJGL extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sjgl);
+        Window window = SJGL.this.getWindow();
+//        //取消设置透明状态栏，使contentview内容不再覆盖状态栏
+       window.clearFlags((WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS));
+       //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+       //设置状态栏颜色
+        window.setStatusBarColor(SJGL.this.getResources().getColor(R.color.statusbar1));
+        isfirst =true;
+
+        ViewGroup mContentView = (ViewGroup)SJGL.this.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if(mChildView != null){
+            //注意不是设置ContentView 的FitsSystemWIndows，而是设置ContentView 的第一子View
+            //预留出系统的View的空间。
+            ViewCompat.setFitsSystemWindows(mChildView,true);
+        }
+
 
 //        tb_shopsinfo shopsinfo = new tb_shopsinfo(Long.parseLong("2"),"xl","123456","饺子馆","人和食堂","18212322222","img/a.jpeg","8:00 am","");
 //
@@ -102,32 +127,41 @@ public class SJGL extends AppCompatActivity {
         DBShopsinfo db = new DBShopsinfo(SJGL.this);
         pb = new DBShopsmenu(SJGL.this);
 
-        if(getIntent().getStringExtra("userid")!=null){
-            userid = getIntent().getStringExtra("userid");
-            tb = db.findbyUserid(userid);
-            String str = tb.getUserid();
-            shopid = tb.getId();
-        }
-        else{
+       try {
+           Intent inte  = getIntent();
+           if(inte.getStringExtra("userid")==null){
 
-            shopid =Long.parseLong(getIntent().getStringExtra("shopid"));
-        }
+           }else{
+               userid = getIntent().getStringExtra("userid");
+               tb = db.findbyUserid(userid);
+               String str = tb.getUserid();
+               shopid = tb.getId();
+           }
 
+           if(inte.getStringExtra("shopid")==null){}
+           else{
+               shopid =Long.parseLong(getIntent().getStringExtra("shopid"));
+               tb = db.shopsinfoById(shopid);
+           }
+
+       }catch (Exception ex){
+           ex.printStackTrace();
+       }
         final long id = shopid;
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);//获取页面的工具栏
-
-
         toolbar.setTitle(R.string.app_name);
-        toolbar.setTitleMarginStart(200);
+        toolbar.setTitleMarginStart(170);
         toolbar.setTitleMarginTop(10);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.allback);
 
-        toolbar.setNavigationIcon(R.drawable.bac);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //返回首页
-                Intent intent = new Intent(SJGL.this, YGSCateAPP.class);
+                Intent intent = new Intent(SJGL.this, Login.class);
                 startActivity(intent);
             }
         });
@@ -138,6 +172,9 @@ public class SJGL extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
         cancel = (Button) findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,7 +240,20 @@ public class SJGL extends AppCompatActivity {
 //            image.setImageBitmap(bm);
 //        }
 
-        image.setImageURI(uri.fromFile(new File(tb.getPhoto())));
+        // image.setImageURI(uri.fromFile(new File(tb.getPhoto()))); //注释  罗金美
+
+        String path =tb.getPhoto();
+        File file = new File(path);//创建一个文件对象
+
+        if (file.exists()) {
+            Bitmap bm = BitmapFactory.decodeFile(path);
+            //将图片显示到ImageView中
+            image.setImageBitmap(bm);
+        }
+        else{
+            Toast.makeText(SJGL.this,"没有图片",Toast.LENGTH_LONG).show();
+        }
+
         address = (TextView) findViewById(R.id.address);
         address.setText(String.valueOf(tb.getAddress()));
         mobile = (TextView) findViewById(R.id.mobile);
@@ -260,7 +310,6 @@ public class SJGL extends AppCompatActivity {
         DBShopsmenu sb = new DBShopsmenu(SJGL.this);
         List<tb_shopsmenu> list = sb.findDataBySHopid(shopid);
         return list;
-
     }
 
     //fl新增删除
@@ -299,7 +348,24 @@ public class SJGL extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_shop, menu);
-        return super.onCreateOptionsMenu(menu);
+         return true;
+    }
+
+
+    //关闭编辑、修改窗口可以刷新数据
+    public void onResume(){
+        super.onResume();
+       if(isfirst = true) {
+           listData = getdata();
+           // Toast.makeText(SJGL.this,"resume",Toast.LENGTH_LONG).show();
+            final SJGLAdapter adapterad = new SJGLAdapter(SJGL.this, listData, muflag);
+            listView.setAdapter(adapterad);
+            listData = getdata();
+            isfirst = false;
+            initView();
+        }else{
+
+        }
     }
 
 }

@@ -14,9 +14,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
+        android:background="#f88f07"
         android:minHeight="50dp"
         app:titleTextColor="#ffffff"
+        android:alpha="0.5"
         android:gravity="center"
         android:textAlignment="center"
         >

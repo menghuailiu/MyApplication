@@ -40,7 +40,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {//这是如果已经创建了数据库，那就把要修改数据库的代码写在这里
         //sname商家名称，opentime营业时间，remark备注
-//        String str1="create table tb_shopsinfo(_id integer primarykey key,userid varchar(50),pwd varchar(0),sname varchar(20),address varchar(50),tel varchar(20),photo varchar(500),opentime varchar(20),remark varchar(300))";
+//        String str1="create table tb_shopsinfo(_id integer primarykey key,userid varchar(50),pwd varchar(30),sname varchar(20),address varchar(50),tel varchar(20),photo varchar(500),opentime varchar(20),remark varchar(300))";
 //
 //        sqLiteDatabase.execSQL(str1);
     }

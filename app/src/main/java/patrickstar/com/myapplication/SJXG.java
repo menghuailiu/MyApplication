@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Environment;
+import android.renderscript.Sampler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class SJXG extends Activity {
     private static  final int PHOTO_REQUEST_CUT = 3 ;//剪切图片
     private Camera camera;//相机对象
     private  boolean isPreview = false;//是否为预览模式
-    private  String imgpath=null;
+    private  String imgpath="";
     private File tempFile;
     private EditText txtname;
     private EditText txtaddress;
@@ -83,12 +84,12 @@ public class SJXG extends Activity {
 
         image =(ImageView)findViewById(R.id.image) ;
         String a = tb.getPhoto();
-        // image.setImageURI(uri.fromFile(new File(ALBUM_PATH + a)));
-       // final File file = new File(SJXG.this.getFilesDir(),+ date+"r"+ ".jpg");
-       /* Toast.makeText(SJXG.this,SJXG.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
+        imgpath =a;
+        final File file = new File(tb.getPhoto());
+       // Toast.makeText(SJXG.this,SJXG.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
         if(file.exists()){
             image.setImageURI(Uri.fromFile(file));
-        }*/
+        }
 
         submit = (Button)findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -102,11 +103,14 @@ public class SJXG extends Activity {
                 tb.setOpentime(txttime.getText().toString());
                 tb.setRemark(txtremark.getText().toString());
                 tb.setPhoto(imgpath);
+
                 boolean a =db.update(tb);
                 List list  = db.findAll();
                 if(a=true)
                 {
+
                     Intent intent = new Intent(SJXG.this,SJGL.class);
+                    intent.putExtra("shopid", String.valueOf(id));
                     startActivity(intent);
 
                 }
@@ -117,9 +121,10 @@ public class SJXG extends Activity {
         load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent("android.intent.action.GET_CONTENT");
-                intent.setType("img/*");
-                startActivityForResult(intent, 1);
+               /* Intent intent = new Intent("android.intent.action.GET_CONTENT");
+                intent.setType("img*//*");
+                startActivityForResult(intent, 1);*/
+                changeHeadIcon();
             }
         });
     }
@@ -188,7 +193,7 @@ public class SJXG extends Activity {
             if (pic.length() < 1) {
 
             } else {
-                Toast.makeText(SJXG.this, "ohahha", Toast.LENGTH_SHORT).show();//弹出提示
+                //Toast.makeText(SJXG.this, "ohahha", Toast.LENGTH_SHORT).show();//弹出提示
                 if (!android.os.Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                     Toast.makeText(SJXG.this, "请安装SD卡", Toast.LENGTH_SHORT).show();//弹出提示
                 }
@@ -215,7 +220,7 @@ public class SJXG extends Activity {
 
     //设置弹出框的内容  修改图片
     private void changeHeadIcon(){
-        final  CharSequence[] items = {"相册","拍照"};
+        final  CharSequence[] items = {"相册"};
         AlertDialog dlg = new AlertDialog.Builder(SJXG.this).setTitle("选择图片").
                 setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -229,6 +234,7 @@ public class SJXG extends Activity {
                         else{
                             //跳转到拍照页面
                             Intent intent = new Intent(SJXG.this,CameraPic.class);
+                            intent.putExtra("page","sjxg");
                             startActivity(intent);
                         }
                     }

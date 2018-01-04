@@ -2,39 +2,43 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/blackbg"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-    <SurfaceView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:id="@+id/surfaceView1"/>
-</LinearLayout>
-    <LinearLayout android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-        android:background="#fff"
-    >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff">
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="预览"
-        android:id="@+id/preview"
-        />
-        <Button
-            android:id="@+id/btntakephoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="拍照"
+        >
+        <SurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="630dp"
+            android:id="@+id/surfaceView1"/>
+    </LinearLayout>
 
-            android:layout_marginLeft="160dp"/>
-</RelativeLayout>
-</LinearLayout>
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/blackbg"
+    >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/blackbg"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预览"
+                android:id="@+id/preview"
+                android:background="#ffffff"
+            />
+            <Button
+                android:id="@+id/btntakephoto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/btncamera"
+                android:text=""
+                android:layout_marginLeft="185dp"/>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

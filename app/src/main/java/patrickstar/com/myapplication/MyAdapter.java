@@ -84,7 +84,7 @@ public class MyAdapter extends BaseAdapter {
         }
 
 
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" +data.get(i).getPhoto();
+        String path = data.get(i).getPhoto();
         //imgpath=path;
         File file = new File(path);//创建一个文件对象
 

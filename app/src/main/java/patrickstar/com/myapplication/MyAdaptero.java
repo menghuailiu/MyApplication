@@ -88,17 +88,15 @@ public class MyAdaptero extends BaseAdapter {
 //        }
         //赋值
         //  holder.img.setBackgroundResource(data.get(i).getPhoto());
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" +data.get(i).getPhoto();
+        String path = data.get(i).getPhoto();
         //imgpath=path;
         File file = new File(path);//创建一个文件对象
 
         if (file.exists()) {
             Bitmap bm = BitmapFactory.decodeFile(path);
             //将图片显示到ImageView中
-            holder.imgcai.setImageBitmap(bm);
+            holder.imgcai.setImageURI(Uri.fromFile(file));
         }
-
-
 
 
         holder.txtcname.setText(data.get(i).getDishname());

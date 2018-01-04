@@ -7,10 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.renderscript.Sampler;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -60,11 +64,27 @@ public class StoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.storedetail);
 
 
+        Window window = StoreActivity.this.getWindow();
+//        //取消设置透明状态栏，使contentview内容不再覆盖状态栏
+        window.clearFlags((WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS));
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        //设置状态栏颜色
+        window.setStatusBarColor(StoreActivity.this.getResources().getColor(R.color.statusbar1));
+
+
+        ViewGroup mContentView = (ViewGroup)StoreActivity.this.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if(mChildView != null){
+            //注意不是设置ContentView 的FitsSystemWIndows，而是设置ContentView 的第一子View
+            //预留出系统的View的空间。
+            ViewCompat.setFitsSystemWindows(mChildView,true);
+        }
         //菜单list的内容
-
+        setContentView(R.layout.storedetail);
         listData = getdata();
 
         final MyAdaptero adapter=new MyAdaptero(StoreActivity.this,listData);
@@ -114,7 +134,7 @@ public class StoreActivity extends AppCompatActivity {
         String a = sb.getPhoto();
 
         //读取数据库图片
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" ;
+/*        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" ;
 
         File f = new File(path+"/img");
         if(f.exists()) {
@@ -122,13 +142,13 @@ public class StoreActivity extends AppCompatActivity {
         else
         {
             f.mkdirs();
-        }
-        File file = new File(path+"/img/a.jpeg");//创建一个文件对象
+        }*/
+        File file = new File(sb.getPhoto());//创建一个文件对象
 
         if (file.exists()) {
-            Bitmap bm = BitmapFactory.decodeFile(path+"/img/a.jpeg");
+            Bitmap bm = BitmapFactory.decodeFile(sb.getPhoto());
             //将图片显示到ImageView中
-            imgPhoto.setImageBitmap(bm);
+            imgPhoto.setImageURI(Uri.fromFile(file));
         }
 //        //从模拟器读取图片
 //        final File file = new File(StoreActivity.this.getFilesDir(),"imgs/a.jpeg");
@@ -160,7 +180,7 @@ public class StoreActivity extends AppCompatActivity {
         toolbar.setTitleMarginStart(200);
         toolbar.setTitleMarginTop(10);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.bac);
+        toolbar.setNavigationIcon(R.drawable.allback);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,7 +207,7 @@ public class StoreActivity extends AppCompatActivity {
 
         for(int j = 0 ; j<list.size();j++) {
             tb_shopsmenu t = (tb_shopsmenu) list.get(j);
-            Toast.makeText(StoreActivity.this, t.getDishname(), Toast.LENGTH_SHORT);
+           // Toast.makeText(StoreActivity.this, t.getDishname(), Toast.LENGTH_SHORT);
 
         }
         //Log.i()

@@ -1,26 +1,37 @@
 package patrickstar.com.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import patrickstar.com.myapplication.db.DBOpenHelper;
 import  patrickstar.com.myapplication.db.DBShopsinfo;
+import patrickstar.com.myapplication.db.DBShopsinfo;
+import patrickstar.com.myapplication.model.tb_shopsinfo;
 
-//4365e6   4659c5  3c50c1
-public class Login extends AppCompatActivity {
+
+
+public class Login extends Activity {
     public  Toolbar toolbar;
     public Button btnLogin;
     public Button btnRegister;
@@ -29,10 +40,32 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        //initView();
+        setContentView(R.layout.activity_login);
+        //查询信息
+
+        Window window = Login.this.getWindow();
+       //设置透明状态栏,这样才能让 ContentView 向上
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //设置状态栏颜色
+        // int color = getResources().getColor(R.color.statusbar);
+        // window.setStatusBarColor(color);
+
+        ViewGroup mContentView = (ViewGroup) Login.this.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 使其不为系统 View 预留空间.
+            ViewCompat.setFitsSystemWindows(mChildView, true);
+        }
+
+
+        initView();
         initclick();
+
+
     }
 
     //处理按钮点击事件
@@ -56,11 +89,16 @@ public class Login extends AppCompatActivity {
                     DBShopsinfo info = new DBShopsinfo(Login.this);
                     boolean b = info.Login(txtuserid.getText().toString(), txtpwd.getText().toString());
                     TextView text=(TextView)findViewById(R.id.txtuserid);
-                    text.getText();//调用这个方法就可以获得这个textView的内容了
-                    String userid = text.getText().toString();
-                    Intent intent = new Intent(Login.this,SJGL.class);
-                    intent.putExtra("userid",new String(userid));
-                    startActivity(intent);
+                    if(b==true) {
+                        text.getText();//调用这个方法就可以获得这个textView的内容了
+                        String userid = text.getText().toString();
+                        Intent intent = new Intent(Login.this, SJGL.class);
+                        intent.putExtra("userid", new String(userid));
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(Login.this,"用户名不存在或密码错误",Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }
@@ -84,13 +122,14 @@ public class Login extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         toolbar.setTitleMarginStart(200);
         toolbar.setTitleMarginTop(10);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.bac);
+        //setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.loginback);
+        toolbar.setNavigationContentDescription("生活函数");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //返回首页
-                Intent intent = new Intent(Login.this,YGSCateAPP.class);
+                Intent intent = new Intent(Login.this,FirstActivity.class);
                 startActivity(intent);
             }
         });

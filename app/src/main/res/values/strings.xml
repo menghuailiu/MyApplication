@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">云工商美食查询app</string>
     <string name="title_activity_sjgl">SJGL</string>
     <string name="title_activity_store_detail">StoreDetail</string>
     <string name="title_activity_call">CallActivity</string>
     <string name="title_activity_store">StoreActivity</string>
+    <string name="title_activity_server_connection">ServerConnection</string>
 </resources>

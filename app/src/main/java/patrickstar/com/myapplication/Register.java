@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +68,25 @@ public class Register extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        Window window = Register.this.getWindow();
+        //取消设置透明状态栏，使contentview内容不再覆盖状态栏
+        window.clearFlags((WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS));
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        //设置状态栏颜色
+        window.setStatusBarColor(Register.this.getResources().getColor(R.color.statusbar));
+        ViewGroup mContentView = (ViewGroup)Register.this.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if(mChildView != null){
+            //注意不是设置ContentView 的FitsSystemWIndows，而是设置ContentView 的第一子View
+            //预留出系统的View的空间。
+            ViewCompat.setFitsSystemWindows(mChildView,true);
+        }
+
+
+
         initView();
         initVIew();
 
@@ -99,9 +121,9 @@ public class Register extends Activity {
                 else  if(txtopentime.getText().toString().length()<1){
                     Toast.makeText(Register.this,"请输入营业时间",Toast.LENGTH_SHORT).show();
                 }
-                else  if(txtremark.getText().toString().length()<1){
+               /*else  if(txtremark.getText().toString().length()<1){
                     Toast.makeText(Register.this,"请输入备注",Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 else if(imgpath == null){
                     Toast.makeText(Register.this,"请选择图片",Toast.LENGTH_SHORT).show();
                 }
@@ -128,7 +150,8 @@ public class Register extends Activity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitleMarginTop(10);
         // setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.bac);
+        //toolbar.setNavigationIcon(R.drawable.bac);
+        toolbar.setNavigationIcon(R.drawable.allback);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,10 +225,80 @@ public class Register extends Activity {
             if (pic.length() < 1) {
 
             } else {
-                Toast.makeText(Register.this, "ohahha", Toast.LENGTH_SHORT).show();//弹出提示
+               // Toast.makeText(Register.this, "ohahha", Toast.LENGTH_SHORT).show();//弹出提示
+                //获取
                 if (!android.os.Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                     Toast.makeText(Register.this, "请安装SD卡", Toast.LENGTH_SHORT).show();//弹出提示
                 }
+                CharSequence userid="",pwd="",sname="",addr="",tel="",opentime="",remark="";
+
+                //绑定控件，
+                txtuserid = (EditText)findViewById(R.id.txtuserid);
+                txtpwd = (EditText)findViewById(R.id.txtpwd);
+                txtsname = (EditText)findViewById(R.id.txtsname);
+                txtaddr = (EditText)findViewById(R.id.txtaddr);
+
+                txttel = (EditText)findViewById(R.id.txttel);
+                txtopentime = (EditText)findViewById(R.id.txtopentime);
+                txtremark = (EditText)findViewById(R.id.txtremark);
+                btnsave = (Button)findViewById(R.id.btnsave);
+                try {
+
+                    userid = intent.getStringExtra("userid");
+                    pwd = intent.getStringExtra("pwd");
+                    sname = intent.getStringExtra("sname");
+                    addr = intent.getStringExtra("addr");
+                    tel = intent.getStringExtra("tel");
+                    opentime = intent.getStringExtra("opentime");
+                    remark =intent.getStringExtra("remark");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                if(userid==null){
+
+                } else{
+                    txtuserid.setText(userid);
+                }
+
+                if(pwd==null){
+
+                } else{
+                    txtpwd.setText(pwd);
+                }
+
+                if (sname==null){
+
+                }else{
+                    txtsname.setText(sname);
+                }
+
+                if(addr==null){
+
+                }else{
+                    txtaddr.setText(addr);
+                }
+
+                if (tel==null){
+
+                }else{
+                   txttel.setText(tel);
+                }
+
+                if(opentime==null){
+
+                }else{
+                    txtopentime.setText(opentime);
+                }
+
+
+                if(remark==null){
+
+                }else{
+                   txtremark.setText(remark);
+                }
+
+
 
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/myapplication/" + pic + ".jpg";
                 imgpath=path;
@@ -218,7 +311,8 @@ public class Register extends Activity {
                 }
             }
         }catch (Exception e) {
-            Toast.makeText(Register.this, "bbugbug", Toast.LENGTH_SHORT).show();//弹出提示
+            e.printStackTrace();
+            //Toast.makeText(Register.this, "bbugbug", Toast.LENGTH_SHORT).show();//弹出提示
             Calendar c = Calendar.getInstance();
             System.out.println(c.get(Calendar.HOUR_OF_DAY));//输出事件
             if ((c.get(Calendar.HOUR_OF_DAY)) < 18 && (c.get(Calendar.HOUR_OF_DAY)) >= 6) {
@@ -243,6 +337,49 @@ public class Register extends Activity {
                         else{
                             //跳转到拍照页面
                             Intent intent = new Intent(Register.this,CameraPic.class);
+                            //传递文本框内容过去
+                            if(txtuserid.getText().toString().length()<1){
+
+                            } else{
+                                intent.putExtra("userid",txtuserid.getText().toString());
+                            }
+
+                             if(txtpwd.getText().toString().length()<1){
+
+                            } else{
+                                 intent.putExtra("pwd",txtpwd.getText().toString());
+                             }
+
+                             if (txtsname.getText().toString().length()<1){
+
+                            }else{
+                                 intent.putExtra("sname",txtsname.getText().toString());
+                             }
+
+                             if(txtaddr.getText().toString().length()<1){
+
+                            }else{
+                                 intent.putExtra("addr",txtaddr.getText().toString());
+                             }
+
+                              if (txttel.getText().toString().length()<1){
+
+                            }else{
+                                  intent.putExtra("tel",txttel.getText().toString());
+                              }
+
+                              if(txtopentime.getText().toString().length()<1){
+
+                            }else{
+                                  intent.putExtra("opentime",txtopentime.getText().toString());
+                              }
+
+
+                             if(txtremark.getText().toString().length()<1){
+
+                            }else{
+                                 intent.putExtra("remark",txtremark.getText().toString());
+                             }
                             startActivity(intent);
                         }
                     }

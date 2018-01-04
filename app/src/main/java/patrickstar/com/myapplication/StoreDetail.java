@@ -3,10 +3,14 @@ package patrickstar.com.myapplication;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,7 +60,23 @@ public class StoreDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storedetail);
+        Window window = StoreDetail.this.getWindow();
+//        //取消设置透明状态栏，使contentview内容不再覆盖状态栏
+        window.clearFlags((WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS));
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
+        //设置状态栏颜色
+        window.setStatusBarColor(StoreDetail.this.getResources().getColor(R.color.statusbar1));
+
+
+        ViewGroup mContentView = (ViewGroup)StoreDetail.this.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if(mChildView != null){
+            //注意不是设置ContentView 的FitsSystemWIndows，而是设置ContentView 的第一子View
+            //预留出系统的View的空间。
+            ViewCompat.setFitsSystemWindows(mChildView,true);
+        }
 
         //查询菜单
 //        int iii=0;
@@ -124,8 +144,8 @@ public class StoreDetail extends AppCompatActivity {
         String a = sb.getPhoto();
 
         //从模拟器读取图片
-        final File file = new File(StoreDetail.this.getFilesDir(),"imgs/a.jpeg");
-        Toast.makeText(StoreDetail.this,StoreDetail.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
+        final File file = new File(sb.getPhoto());
+        //Toast.makeText(StoreDetail.this,StoreDetail.this.getFilesDir().getPath().toString(),Toast.LENGTH_SHORT).show();
         if(file.exists()){
             imgPhoto.setImageURI(Uri.fromFile(file));
         }
@@ -157,7 +177,7 @@ public class StoreDetail extends AppCompatActivity {
         toolbar.setTitleMarginStart(200);
         toolbar.setTitleMarginTop(10);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.bac);
+        toolbar.setNavigationIcon(R.drawable.allback);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,7 +239,7 @@ public class StoreDetail extends AppCompatActivity {
 
         for(int j = 0 ; j<list.size();j++) {
             tb_shopsmenu t = (tb_shopsmenu) list.get(j);
-            Toast.makeText(StoreDetail.this, t.getDishname(), Toast.LENGTH_SHORT);
+           // Toast.makeText(StoreDetail.this, t.getDishname(), Toast.LENGTH_SHORT);
 
         }
         //Log.i()
